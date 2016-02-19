@@ -12,10 +12,12 @@
 	</div>
 	<div id="MainContent">
 	<?php
-		$choice = $_REQUEST["action"];
-		if ($choice == NULL)
-			$choice = "statistics";
-		include_once($choice . "php");
+		$choice = "statistics";
+		if (isset($_REQUEST["action"]))
+		{
+			$choice = $_REQUEST["action"];
+		}		
+		include_once($choice . ".php");
 	?>
 	</div>
 </body>

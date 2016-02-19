@@ -3,7 +3,8 @@
 	
 	if (isset($_SESSION["LOGGED_IN"]))
 	{
-		if (0 == strcmp( "admin", strtolower($_SESSION["ROLE"]) ) )
+		$result = $_SESSION["LOGIN_INFO"];
+		if (0 == strcmp( "admin", strtolower($result->RoleName) ) )
 		{
 			// Go to default admin page 
 			header("Location: admincp.php");
