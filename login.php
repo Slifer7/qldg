@@ -1,3 +1,16 @@
+<?php
+	$error = "";
+	
+	if (isset($_REQUEST["error"]))
+	{
+		if ("INVALID_LOGIN_INFO" == $_REQUEST["error"])
+		{
+			$error = "Lỗi: Tên đăng nhập hoặc mật khẩu không đúng.";
+		}
+	}
+	
+?>
+
 <html>
 	<head>
 		<title> Login </title>
@@ -8,7 +21,9 @@
 	
 	<body>
 		<div>
-			<span class="ErrorText" id="txtErrorInfo"/>
+			<span class="ErrorText" id="txtErrorInfo">
+				<?php echo $error ?>
+			</span>
 		</div>
 		<form action="controller/doLogin.php" method="post" onsubmit="return ValidateLoginData();">
 			Username: <input type="text" name="txtUsername" id="txtUsername"/> <br/>

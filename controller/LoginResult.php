@@ -1,13 +1,15 @@
 <?php
 	class LoginResult
 	{
+		public $Username;
 		public $Success;
 		public $RoleName;
 		
 		public function __construct()
 		{
-			$Success = false;
-			$RoleName = "";
+			$this->Username = "";
+			$this->Success = false;
+			$this->RoleName = "";
 		}
 	}
 ?>
