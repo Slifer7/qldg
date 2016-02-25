@@ -7,6 +7,7 @@
 	
 	<div id="divStudentInfo">
 		<input id="txtStudentID" type="text" onkeypress="txtStudentID_TextChanged();" placeholder="MSSV" autofocus/> 
+		<input id="txtFullName" type="text" placeholder="Họ và tên" /> 
 		<select id="cmbMajor">
 			<option value="Ngành">Ngành</option>
 			<?php
@@ -19,22 +20,23 @@
 				}
 			?>
 		</select>
-		<input type="button" value="Kiểm tra" onclick="btnCheckStudentID();"/> 	
+			
 		<div style="text-align: center;">
+			<input type="button" value="Kiểm tra" onclick="btnCheckStudentID();"/> 
 			<input type="button" value="Thêm" onclick="btnInsertStudentID();"/>
 		</div>
 	</div>
 	
 	<div id="divVisitList"> 
 		<h3>Các lượt truy cập của ngày hiện tại: <?php echo (new DateTime())->format('d/m/Y');?></h3>
-		<table>
+		<table id="tblVisitList">
 			<tr>
 				<th>MSSV</th>
 				<th>Họ và tên</th>
 				<th>Ngành học</th>
 				<th>Thời gian</th>
 			</tr>
-		<?php		
+		<?php		 
 			// Hiển thị các lượt đã truy cập của ngày hôm đó sắp xếp giảm dần
 			$visits = db::GetTodayVisits();			
 			
