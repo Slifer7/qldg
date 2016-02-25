@@ -11,14 +11,21 @@ class DB
 	public static $dbUser = "root";
 	public static $dbPass = "";	
 	
-	public static function Login($username, $password) //: LoginResult
+	public static function Connect()
 	{
-		$result = new LoginResult();
-		
 		$connection = new mysqli(self::$server, self::$dbUser, self::$dbPass, self::$database);
 		if ($connection->connect_error) {
 			die("Connection failed: " . $connection->connect_error);
 		}
+		
+		return $connection;
+	}
+	
+	public static function Login($username, $password) //: LoginResult
+	{
+		$result = new LoginResult();
+		
+		$connection = self::Connect();
 		
 		$username = $connection->real_escape_string($username);
 		$password = $connection->real_escape_string($password);
@@ -44,10 +51,7 @@ class DB
 	{
 		$result = array();
 		
-		$connection = new mysqli(self::$server, self::$dbUser, self::$dbPass, self::$database);
-		if ($connection->connect_error) {
-			die("Connection failed: " . $connection->connect_error);
-		}
+		$connection = self::Connect();
 		
 		$sql = "select * from Visit where year(now()) = year(timestamp) and month(now()) = month(timestamp) and day(now()) = day(timestamp) order by timestamp desc";
 		
@@ -79,10 +83,7 @@ class DB
 	{
 		$result = array();
 		
-		$connection = new mysqli(self::$server, self::$dbUser, self::$dbPass, self::$database);
-		if ($connection->connect_error) {
-			die("Connection failed: " . $connection->connect_error);
-		}
+		$connection = self::Connect();
 		
 		$sql = "select * from Major";
 		
@@ -106,6 +107,27 @@ class DB
 		$connection->close();
 		
 		return $result;
+	}
+	
+	// Thêm một lượt truy cập vào CSDL
+	public static function InsertNewVisit($visitInfo)
+	{
+		$newInsertedID = -1;
+		
+		$connection = self::Connect();
+		
+		$sql = "insert into Visit(studentid, major, timestamp) values('$visitInfo->StudentID', '$visitInfo->Major', now())";
+		$connection->query("set names 'utf8'");
+		$result = $connection->query($sql);
+		
+		if ($result == TRUE)
+		{
+			$newInsertedID = $connection->insert_id;
+		}
+		
+		$connection->close();
+		
+		return $newInsertedID;
 	}
 }
 	

@@ -15,7 +15,7 @@
 				foreach($majors as $major)
 				{
 					$value = $major->Code . " - " . $major->MajorName;
-					echo "<option value=$major->MajorName>$value</option>";
+					echo "<option value='$major->MajorName'>$value</option>";
 				}
 			?>
 		</select>
@@ -26,12 +26,13 @@
 	</div>
 	
 	<div id="divVisitList"> 
+		<h3>Các lượt truy cập của ngày hiện tại: <?php echo (new DateTime())->format('d/m/Y');?></h3>
 		<table>
 			<tr>
 				<th>MSSV</th>
 				<th>Họ và tên</th>
 				<th>Ngành học</th>
-				<th>Ngày</th>
+				<th>Thời gian</th>
 			</tr>
 		<?php		
 			// Hiển thị các lượt đã truy cập của ngày hôm đó sắp xếp giảm dần

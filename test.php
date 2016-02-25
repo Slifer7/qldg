@@ -1,10 +1,9 @@
 <?php
 require_once("controller/db.php");
 
-$result = DB::GetAllMajors();
+$visitInfo = new VisitInfo(-1, "1212111", "CNTT", new DateTime());
 
-foreach($result as $value)
-{
-	echo var_dump($value) . "<br/>"; 
-}
+$insertedID = db::InsertNewVisit($visitInfo);
+
+echo $insertedID;
 ?>
