@@ -1,9 +1,7 @@
 <?php
 require_once("controller/db.php");
 
-$visitInfo = new VisitInfo(-1, "1212111", "CNTT", new DateTime());
+$fullname = db::CheckStudentExist("123");
 
-$insertedID = db::InsertNewVisit($visitInfo);
-
-echo $insertedID;
+echo $fullname;
 ?>

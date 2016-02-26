@@ -3,26 +3,34 @@
 ?>
 <h1>Quản lí lượt truy cập</h1>
 <div>
+	<script>
+	// Dữ liệu để kiểm tra ngành học
+	var majors = {};
+	<?php
+		$majors = db::GetAllMajors();
+		
+		foreach($majors as $major) {
+			echo "majors['$major->Code'] = '$major->MajorName';\r\n";
+		}
+	?>	
+	</script>
 	<span id="txtInfo"></span>
 	
 	<div id="divStudentInfo">
-		<input id="txtStudentID" type="text" onkeypress="txtStudentID_TextChanged();" placeholder="MSSV" autofocus/> 
+		<input id="txtStudentID" type="text" onkeyup="txtStudentID_KeyUp();" placeholder="MSSV" autofocus/> 
 		<input id="txtFullName" type="text" placeholder="Họ và tên" /> 
 		<select id="cmbMajor">
 			<option value="Ngành">Ngành</option>
 			<?php
-				$majors = db::GetAllMajors();
-				
 				foreach($majors as $major)
 				{
 					$value = $major->Code . " - " . $major->MajorName;
-					echo "<option value='$major->MajorName'>$value</option>";
+					echo "<option value='$major->Code'>$value</option>";
 				}
 			?>
 		</select>
 			
 		<div style="text-align: center;">
-			<input type="button" value="Kiểm tra" onclick="btnCheckStudentID();"/> 
 			<input type="button" value="Thêm" onclick="btnInsertStudentID();"/>
 		</div>
 	</div>
@@ -43,8 +51,8 @@
 			foreach($visits as $visit)
 			{
 				echo "<tr>";
-					echo "<td>$visit->VisitID</td>";
 					echo "<td>$visit->StudentID</td>";
+					echo "<td></td>";
 					echo "<td>$visit->Major</td>";
 					echo "<td>$visit->Date</td>";
 				echo "</tr>";

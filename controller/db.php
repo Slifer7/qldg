@@ -129,6 +129,27 @@ class DB
 		
 		return $newInsertedID;
 	}
+	
+	public static function CheckStudentExist($studentID)
+	{
+		$fullname = "NOT_FOUND";
+		
+		$connection = self::Connect();
+		
+		$sql = "select * from Registration where studentid='$studentID'";
+		$connection->query("set names 'utf8'");
+		$reader = $connection->query($sql);
+		
+		if ($reader->num_rows > 0)
+		{
+			$row = $reader->fetch_assoc();
+			$fullname = $row["fullname"];
+		}
+		
+		$connection->close();
+
+		return $fullname;
+	}	
 }
 	
 ?>
