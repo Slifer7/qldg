@@ -3,34 +3,13 @@
 ?>
 <h1>Quản lí lượt truy cập</h1>
 <div>
-	<script>
-	// Dữ liệu để kiểm tra ngành học
-	var majors = {};
-	<?php
-		$majors = db::GetAllMajors();
-		
-		foreach($majors as $major) {
-			echo "majors['$major->Code'] = '$major->MajorName';\r\n";
-		}
-	?>	
-	</script>
 	<span id="txtInfo"></span>
 	
 	<div id="divStudentInfo">
-		<input id="txtStudentID" type="text" onkeyup="txtStudentID_KeyUp();" placeholder="MSSV" autofocus/> 
-		<input id="txtFullName" type="text" placeholder="Họ và tên" /> 
-		<select id="cmbMajor">
-			<option value="Ngành">Ngành</option>
-			<?php
-				foreach($majors as $major)
-				{
-					$value = $major->Code . " - " . $major->MajorName;
-					echo "<option value='$major->Code'>$value</option>";
-				}
-			?>
-		</select>
-			
-		<div style="text-align: center;">
+		<input id="txtStudentID" type="text" placeholder="MSSV" autofocus/> 
+		<input id="txtFullName" type="text" placeholder="Họ và tên" /> 		
+		<input type="button" value="Kiểm tra" onclick="btnCheckStudentID();"/> 
+		<div style="text-align: center;">			
 			<input type="button" value="Thêm" onclick="btnInsertStudentID();"/>
 		</div>
 	</div>

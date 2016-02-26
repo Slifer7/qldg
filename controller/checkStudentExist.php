@@ -1,11 +1,11 @@
 <?php
-
 require_once("db.php");
 
-if (isset($_POST["StudentID"])){
-	$fullname = db::CheckStudentExist($_POST["StudentID"]);
+if (isset($_POST["StudentID"]))
+{
+	$studentID = $_POST["StudentID"];	
+	$reginfo = db::GetRegistrationInfoByStudentID($studentID);
 	
-	echo $fullname;
+	echo json_encode($reginfo);
 }
-
 ?>

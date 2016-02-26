@@ -3,6 +3,7 @@
 require_once("LoginResult.php");
 require_once("VisitInfo.php");
 require_once("MajorInfo.php");
+require_once("RegistrationInfo.php");
 
 class DB
 {
@@ -150,6 +151,29 @@ class DB
 
 		return $fullname;
 	}	
+	
+	public static function GetRegistrationInfoByStudentID($studentID)
+	{
+		$reginfo = new RegistrationInfo("", "", "");
+		$connection = self::Connect();
+		
+		$sql = "select * from Registration where studentid='$studentID'";
+		$connection->query("set names 'utf8'");
+		$reader = $connection->query($sql);
+		
+		if ($reader->num_rows > 0)
+		{
+			$row = $reader->fetch_assoc();
+			$id = $row["studentid"];
+			$name = $row["fullname"];
+			$major = $row["majorname"];
+			
+			$reginfo = new RegistrationInfo($id, $name, $major);
+		}
+		
+		$connection->close();
+		return $reginfo;
+	}
 }
 	
 ?>

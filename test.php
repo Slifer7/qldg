@@ -1,7 +1,7 @@
 <?php
 require_once("controller/db.php");
 
-$fullname = db::CheckStudentExist("123");
+$fullname = db::GetRegistrationInfoByStudentID("1461100");
 
-echo $fullname;
+echo var_dump($fullname);
 ?>
