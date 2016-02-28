@@ -6,12 +6,13 @@ session_start();
 <head>
 	<title>Admin control panel</title>
 	<script src="js/visitman.js"></script>
+	<script src="js/majorman.js"></script>
 	<link rel="stylesheet" href="css/visitman.css"></link>
 </head>
 
 <body>
 	<div id="control panel">
-		<a href="admincp/action=majorman">Quản lí các ngành học </a> <br/>
+		<a href="admincp.php?action=majorman">Quản lí các ngành học </a> <br/>
 		<a href="admincp/action=userman">Quản lí người dùng</a> <br/>		
 		<a href="admincp/action=import">Import danh sách sinh viên</a> <br/>
 		<a href="admincp/action=visitman">Quản lí lượt truy cập</a> <br/>

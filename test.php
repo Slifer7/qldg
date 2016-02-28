@@ -1,7 +1,7 @@
 <?php
 require_once("controller/db.php");
 
-$fullname = db::GetRegistrationInfoByStudentID("1461100");
+$result = db::InsertNewVisit("1461100");
 
-echo var_dump($fullname);
+echo json_encode($result);
 ?>

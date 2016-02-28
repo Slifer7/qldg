@@ -8,9 +8,9 @@
 	<div id="divStudentInfo">
 		<input id="txtStudentID" type="text" placeholder="MSSV" autofocus/> 
 		<input id="txtFullName" type="text" placeholder="Họ và tên" /> 		
-		<input type="button" value="Kiểm tra" onclick="btnCheckStudentID();"/> 
+		<input type="button" value="Kiểm tra" onclick="btnCheckStudentID_Click();"/> 
 		<div style="text-align: center;">			
-			<input type="button" value="Thêm" onclick="btnInsertStudentID();"/>
+			<input type="button" value="Thêm" onclick="btnInsertStudentID_Click();"/>
 		</div>
 	</div>
 	
@@ -31,7 +31,7 @@
 			{
 				echo "<tr>";
 					echo "<td>$visit->StudentID</td>";
-					echo "<td></td>";
+					echo "<td>$visit->FullName</td>";
 					echo "<td>$visit->Major</td>";
 					echo "<td>$visit->Date</td>";
 				echo "</tr>";
