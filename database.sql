@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2016 at 11:44 AM
+-- Generation Time: Feb 28, 2016 at 02:55 PM
 -- Server version: 10.1.10-MariaDB
--- PHP Version: 7.0.2
+-- PHP Version: 7.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -62,10 +62,29 @@ INSERT INTO `major` (`majorid`, `code`, `majorname`) VALUES
 (23, '3', 'Cao học'),
 (24, 'C', 'Cao học'),
 (25, 'B', 'Cán bộ'),
-(26, 'C', 'Ngoài trường'),
+(26, 'N', 'Ngoài trường'),
 (27, '1', 'Đào tạo từ xa'),
 (28, '5', 'Đào tạo từ xa'),
 (29, '8', 'Đào tạo từ xa');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `registration`
+--
+
+CREATE TABLE `registration` (
+  `studentid` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `fullname` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `majorname` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `registration`
+--
+
+INSERT INTO `registration` (`studentid`, `fullname`, `majorname`) VALUES
+('1461100', 'Lê Vĩnh Tuyến', 'CĐ CNTT');
 
 -- --------------------------------------------------------
 
@@ -108,7 +127,15 @@ INSERT INTO `visit` (`visitid`, `studentid`, `major`, `timestamp`) VALUES
 (1, 'A', 'Test', '2016-02-24 08:31:42'),
 (2, 'B', 'Bsd', '2016-02-24 09:14:25'),
 (3, 'C', 'sfsdf', '2016-02-23 10:36:30'),
-(4, 'D', 'fdfda', '2016-02-24 11:18:39');
+(4, 'D', 'fdfda', '2016-02-24 11:18:39'),
+(5, '1212111', 'CNTT', '2016-02-25 08:10:28'),
+(7, '123', 'CĐ CNTT', '2016-02-25 10:13:06'),
+(8, '12456', 'Hóa học', '2016-02-25 10:43:31'),
+(44, '1461100', 'CĐ CNTT', '2016-02-28 17:57:54'),
+(45, '1461100', 'CĐ CNTT', '2016-02-28 17:59:52'),
+(46, '1461100', 'CĐ CNTT', '2016-02-28 18:00:44'),
+(47, '1461100', 'CĐ CNTT', '2016-02-28 18:03:50'),
+(48, '1461100', 'CĐ CNTT', '2016-02-28 18:11:01');
 
 --
 -- Indexes for dumped tables
@@ -119,6 +146,12 @@ INSERT INTO `visit` (`visitid`, `studentid`, `major`, `timestamp`) VALUES
 --
 ALTER TABLE `major`
   ADD PRIMARY KEY (`majorid`);
+
+--
+-- Indexes for table `registration`
+--
+ALTER TABLE `registration`
+  ADD PRIMARY KEY (`studentid`);
 
 --
 -- Indexes for table `user`
@@ -145,7 +178,7 @@ ALTER TABLE `major`
 -- AUTO_INCREMENT for table `visit`
 --
 ALTER TABLE `visit`
-  MODIFY `visitid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `visitid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

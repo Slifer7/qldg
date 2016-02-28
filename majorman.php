@@ -6,7 +6,7 @@ require_once("controller/db.php");
 <div id="divImportMajors">
 	<span id="txtInfo"></span>
 	<form method="post" action="controller/doImportMajors.php" enctype="multipart/form-data" onsubmit="return ValidateImportFile();">
-		Lựa chọn tập tin: <input type="file" id="fileMajorToImport" placeholder="Excel file"/>
+		Lựa chọn tập tin: <input type="file" name="upfile" placeholder="Excel file"/>
 		<input type="submit" value="upload"/>
 	</form>
 </div>
