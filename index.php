@@ -1,5 +1,5 @@
 <?php
-require_once("controller/LoginResult.php");
+require_once("LoginResult.php");
 session_start();	
 
 if (isset($_SESSION["LOGGED_IN"]))
@@ -16,8 +16,7 @@ if (isset($_SESSION["LOGGED_IN"]))
 		header("Location: visitman.php");
 	}
 }
-else // Haven't login yet
-{
+else {// Haven't login yet
 	// Show log in page
 	header("Location: login.php");
 }

@@ -1,5 +1,10 @@
 <?php
-	require_once("controller/db.php");
+	require_once("db.php");
+	
+	if (!isset($_SESSION["LOGGED_IN"])){
+		// Redirect to log in page
+		header("Location: login.php");
+	}	
 ?>
 <h1>Quản lí lượt truy cập</h1>
 <div>
