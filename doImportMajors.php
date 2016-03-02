@@ -33,7 +33,7 @@ try {
 	
 	if (!move_uploaded_file(
 		$_FILES["upfile"]['tmp_name'],
-		sprintf('../uploads/%s',$uniqueName)
+		sprintf('uploads/%s',$uniqueName)
 	)) {
 		throw new RuntimeException('Failed to move uploaded file.');
 	}

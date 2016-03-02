@@ -1,19 +1,19 @@
-#divStudentInfo
-{
+#divStudentInfo{
 	width: 300px;
 }
 
-#cmbMajor
-{
+#cmbMajor{
 	width: 180px;
 }
 
-#txtStudentID
-{
+#txtStudentID{
 	width: 100px;
 }
 
-#txtFullName
-{
+#txtFullName{
 	width: 120px;	
+}
+
+#txtInfo{
+	
 }

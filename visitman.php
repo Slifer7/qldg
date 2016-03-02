@@ -9,19 +9,19 @@
 <h1>Quản lí lượt truy cập</h1>
 <div>
 	<span id="txtInfo"></span>
-	
 	<div id="divStudentInfo">
 		<input id="txtStudentID" type="text" placeholder="MSSV" autofocus/> 
 		<input id="txtFullName" type="text" placeholder="Họ và tên" /> 		
 		<input type="button" value="Kiểm tra" onclick="btnCheckStudentID_Click();"/> 
-		<div style="text-align: center;">			
+		<div style="text-align: center; margin-top: 10px;">			
 			<input type="button" value="Thêm" onclick="btnInsertStudentID_Click();"/>
 		</div>
 	</div>
-	
+	<br/>
+	<br/>
 	<div id="divVisitList"> 
 		<h3>Các lượt truy cập của ngày hiện tại: <?php echo (new DateTime())->format('d/m/Y');?></h3>
-		<table id="tblVisitList">
+		<table id="tblVisitList" border="1">
 			<tr>
 				<th>MSSV</th>
 				<th>Họ và tên</th>

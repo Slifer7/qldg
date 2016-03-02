@@ -19,7 +19,7 @@ function btnCheckStudentID_Click() {
 				var errorMsg = "";
 				
 				if (reginfo.StudentID.length == 0) { // Không có thông tin từ server
-					errorMsg = "Sinh viên chưa đăng kí sử dụng thư viện.";
+					errorMsg = "Sinh viên chưa đăng kí sử dụng thư viện.<br/><br/>";
 					txtFullName.value = "";
 				}
 				else {
@@ -32,7 +32,7 @@ function btnCheckStudentID_Click() {
 			}
 		};
 
-		xhttp.open("POST", "controller/checkStudentExist.php", true); // Asynchronous
+		xhttp.open("POST", "checkStudentExist.php", true); // Asynchronous
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send("StudentID=" + studentID);
 	}
@@ -45,7 +45,7 @@ function CheckValidStudentInfo()
 	var studentID = document.getElementById("txtStudentID").value;
 	
 	if (studentID.length == 0)
-		info += "Chưa nhập MSSV. <br/>";
+		info += "Chưa nhập MSSV. <br/><br/>";
 	
 	return info;
 }
@@ -67,7 +67,7 @@ function btnInsertStudentID_Click() {
 				var info = "";
 				
 				if (visitInfo.VisitID == -1) {
-					info = "Có lỗi khi thêm lượt truy cập của sinh viên.";	
+					info = "Có lỗi khi thêm lượt truy cập của sinh viên. <br/><br/>";	
 				}
 				else {										
 					// Chèn sinh viên mới vào đầu bảng
@@ -78,7 +78,7 @@ function btnInsertStudentID_Click() {
 					row.insertCell(2).innerHTML = visitInfo.Major;
 					row.insertCell(3).innerHTML = visitInfo.Date;
 					
-					info = "Đã thêm thành công lượt truy cập của sinh viên có mã số: " + visitInfo.StudentID + " - " + visitInfo.FullName;
+					info = "Đã thêm thành công lượt truy cập của sinh viên có mã số: " + visitInfo.StudentID + " - " + visitInfo.FullName + "<br/><br/>";
 					
 					// Reset form cho lần nhập thông tin kế
 					txtStudentID = document.getElementById("txtStudentID")
@@ -94,7 +94,7 @@ function btnInsertStudentID_Click() {
 			}
 		};
 
-		xhttp.open("POST", "controller/doInsertVisit.php", true); // Asynchronous
+		xhttp.open("POST", "doInsertVisit.php", true); // Asynchronous
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		
 		var studentID = document.getElementById("txtStudentID").value;

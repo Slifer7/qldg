@@ -18,6 +18,7 @@ else {// Haven't login yet
 <head>
 	<title>Admin control panel</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
 	<link rel="stylesheet" href="css/admin.css"/>	
 	<link rel="stylesheet" href="css/visitman.css" />
 </head>
@@ -33,7 +34,7 @@ else {// Haven't login yet
           <li><a href="examples.html">Thống kê</a></li>
           <li><a href="page.html">Tài khoản</a></li>
           <li><a href="another_page.html">Đăng kí</a></li>
-          <li><a href="contact.html">Ngành học</a></li>
+          <li><a href="admincp.php?action=majorman">Ngành học</a></li>
         </ul>
       </div>
     </div>
@@ -60,7 +61,8 @@ else {// Haven't login yet
     </div>
   </div>
   
-	<script src="js/visitman.js"></script>
-	<script src="js/majorman.js"></script>
+  <script src="js/jquery-2.2.1.min.js"></script>
+  <script src="js/visitman.js"></script>
+  <script src="js/majorman.js"></script>	
 </body>
 </html>

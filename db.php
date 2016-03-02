@@ -177,11 +177,10 @@ class DB
 		
 		if($reader->num_rows > 0) {
 			while ($row = $reader->fetch_assoc()){
-				$id = $row["majorid"];
 				$code = $row["code"];
 				$name = $row["majorname"];
 			
-				$item = new MajorInfo($id, $code, $name);
+				$item = new MajorInfo($code, $name);
 				array_push($majors, $item);
 			}		
 		}
