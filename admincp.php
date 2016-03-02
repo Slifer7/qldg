@@ -14,25 +14,21 @@ else {// Haven't login yet
 	header("Location: login.php");
 }	
 ?>
-<!DOCTYPE HTML>
 <html>
 <head>
 	<title>Admin control panel</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" type="text/css" href="css/admin.css" title="style" />
-	<title>Admin control panel</title>
-	<script src="js/visitman.js"></script>
-	<script src="js/majorman.js"></script>
-	<link rel="stylesheet" href="css/visitman.css"></link>
+	<link rel="stylesheet" href="css/admin.css"/>	
+	<link rel="stylesheet" href="css/visitman.css" />
 </head>
 <body>
   <div id="main">
     <div id="header">
-      <div id="logo">
-          <img id="logo_img" src="img/logo.png"/> | Thư viện
-      </div>
+	  <div id="logo">
+		<img id="logo_img" src="img/logo.png"/>
+	  </div>	  
       <div id="menubar">
-        <ul id="menu">
+        <ul id="menu">		  
           <li class="selected"><a href="index.html">Lượt truy cập</a></li>
           <li><a href="examples.html">Thống kê</a></li>
           <li><a href="page.html">Tài khoản</a></li>
@@ -44,7 +40,7 @@ else {// Haven't login yet
     <div id="site_content">
       <div class="sidebar">
         <h3>Control panel</h3>
-        <a id="txtUsername"><?php echo $_SESSION["LOGIN_INFO"]->Username; ?></a><br/>
+        <a id="txtUsername" href="profile.php"><?php echo $_SESSION["LOGIN_INFO"]->Username; ?></a><br/>
         <a id="txtAction" href="doLogout.php" >Thoát</a>
       </div>
       <div id="content">
@@ -63,5 +59,8 @@ else {// Haven't login yet
       Thư viện Đại học Khoa học tự nhiên - 227 Nguyễn Văn Cừ P5 Q5 TP HCM
     </div>
   </div>
+  
+	<script src="js/visitman.js"></script>
+	<script src="js/majorman.js"></script>
 </body>
 </html>

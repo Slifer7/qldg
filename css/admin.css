@@ -20,13 +20,13 @@ img
 { border: 0;}
 
 h1, h2, h3, h4, h5, h6 
-{ font: normal 175% 'century gothic', arial, sans-serif;
+{ font: normal 'Roboto', arial, sans-serif;
   color: #43423F;
   margin: 0 0 15px 0;
   padding: 15px 0 5px 0;}
 
 h2
-{ font: normal 175% 'century gothic', arial, sans-serif;
+{ font: normal 175% 'Roboto', arial, sans-serif;
   color: #1293EE;}
 
 h4, h5, h6
@@ -92,21 +92,21 @@ ol li
 
 #header
 { background: #F79F00;
-  height: 240px;}
+  height: 120px;}
 
 #logo
 { width: 825px;
   position: relative;
-  height: 168px;
-  background: #8B0073 url(logo.png) no-repeat;
-  border: 1px solid blue;  }
+  height: 48px;
+  /*background: #8B0073 url(logo.png) no-repeat;*/
+}
 
 #logo_img
-{
-    position: relative;
-    top: 100px;
-    width: 100px;
-    height: 100px;}
+{    
+	margin-left: 773px;
+	margin-top: 54px;
+    width: 73px;
+    height: 73px;}
 
 #menubar
 { width: 877px;
@@ -124,7 +124,7 @@ ul#menu li
 
 ul#menu li a
 { letter-spacing: 0.1em;
-  font: normal 100% 'lucida sans unicode', arial, sans-serif;
+  font: normal 100% 'roboto', arial, sans-serif;
   display: block; 
   float: left; 
   height: 37px;
@@ -185,7 +185,7 @@ ul#menu li a:hover, ul#menu li.selected a, ul#menu li.selected a:hover
   line-height: 1.5em;}
 
 #footer
-{ width: 878px;
+{ width: 837px;
   font: normal 100% 'lucida sans unicode', arial, sans-serif;
   height: 33px;
   padding: 24px 0 5px 0;
