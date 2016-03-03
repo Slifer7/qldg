@@ -146,7 +146,7 @@ class DB
 	}
 	
 	public static function GetRegistrationInfoByStudentID($studentID) {
-		$reginfo = new RegistrationInfo("", "", "");
+		$reginfo = new RegistrationInfo("", "", "", NULL);
 		$connection = self::Connect();
 		
 		$connection->query("set names 'utf8'");
@@ -158,8 +158,9 @@ class DB
 			$id = $row["studentid"];
 			$name = $row["fullname"];
 			$major = $row["majorname"];
+			$date = $row["registerdate"];
 			
-			$reginfo = new RegistrationInfo($id, $name, $major);
+			$reginfo = new RegistrationInfo($id, $name, $major, $date);
 		}
 		
 		$connection->close();
