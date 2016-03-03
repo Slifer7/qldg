@@ -3,7 +3,7 @@ function ValidateImportFile(){
 	var txtInfo = document.getElementById("txtInfo");
 	
 	if (file.value.length == 0){		
-		txtInfo.innerHTML = "Lỗi: Chưa lựa chọn tập tin để đăng nhập. <br/><br/>";		
+		txtInfo.innerHTML = "Lỗi: Chưa lựa chọn tập tin để import. <br/><br/>";		
 		return false;
 	}
 		

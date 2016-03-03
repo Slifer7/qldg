@@ -31,8 +31,6 @@ class MajorInfo
 		$importResult->TotalRecords = $excel->Rows - 1; // Không tính dòng tiêu đề
 		
 		// Rows: 1 -> n trong khi đó Cols: 0 -> n-1
-		$count = 0;
-		
 		for($i = 2; $i <= $excel->Rows; $i++){
 			$code = $excel->ActiveSheet->getCellByColumnAndRow(0, $i)->getValue();
 			$name = $excel->ActiveSheet->getCellByColumnAndRow(1, $i)->getValue();

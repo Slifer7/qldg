@@ -4,7 +4,7 @@ if(!isset($_SESSION)){
 }
 	
 if(isset($_SESSION["MAJOR_IMPORT_RESULT"])){
-	$result = json_decode($_SESSION["MAJOR_IMPORT_RESULT"]);
+	$result = $_SESSION["MAJOR_IMPORT_RESULT"];
 	echo "<h1>Kết quả import các chuyên ngành</h1><br/>";
 	echo "Số lượng chuyên ngành cần import: " . $result->TotalRecords . "<br/>";
 	echo "Số lượng chuyên ngành đã import thành công:" . $result->SuccessCount . "<br/>";

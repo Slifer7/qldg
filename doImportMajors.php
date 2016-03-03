@@ -44,7 +44,7 @@ try {
 	
 	// Free to process uploaded file
 	$result = MajorInfo::Import($uniqueName);
-	$_SESSION["MAJOR_IMPORT_RESULT"] = json_encode($result);
+	$_SESSION["MAJOR_IMPORT_RESULT"] = $result;
 	header("Location: admincp.php?action=showMajorImportResult");	
 } catch (RuntimeException $e) {
 	echo $e->getMessage();

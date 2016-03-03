@@ -7,7 +7,9 @@
 	}	
 ?>
 <h1>Quản lí lượt truy cập</h1>
+<br/>
 <div>
+	<h3>Thêm một lượt truy cập</h3>
 	<span id="txtInfo"></span>
 	<div id="divStudentInfo">
 		<input id="txtStudentID" type="text" placeholder="MSSV" autofocus/> 

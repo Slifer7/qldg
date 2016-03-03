@@ -18,7 +18,6 @@ else {// Haven't login yet
 <head>
 	<title>Admin control panel</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
 	<link rel="stylesheet" href="css/admin.css"/>	
 	<link rel="stylesheet" href="css/visitman.css" />
 </head>
@@ -50,7 +49,7 @@ else {// Haven't login yet
         <a id="txtUsername" href="profile.php"><?php echo $_SESSION["LOGIN_INFO"]->Username; ?></a><br/>
         <a id="txtAction" href="doLogout.php" >Thoát</a>
       </div>
-      <div id="content"><?php include_once($choice . ".php");?>
+      <div id="content"><?php include_once($choice . ".php"); ?>
       </div>
     </div>
     <div id="content_footer"></div>
