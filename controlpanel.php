@@ -35,11 +35,17 @@ else {// Haven't login yet
 				$choice = $_REQUEST["action"];
 			}
 		  ?>		  
-          <li id="visitman"><a href="admincp.php?action=visitman">Lượt truy cập</a></li>
-          <li id="statistics"><a href="admincp.php?action=statistics">Thống kê</a></li>
-          <li id="accounts"><a href="admincp.php?action=accounts">Tài khoản</a></li>
-          <li id="registration"><a href="admincp.php?action=registration">Đăng kí</a></li>
-          <li id="majorman"><a href="admincp.php?action=majorman">Ngành học</a></li>
+          <li id="visitman"><a href="controlpanel.php?action=visitman">Lượt truy cập</a></li>          
+          <li id="accounts"><a href="controlpanel.php?action=accounts">Tài khoản</a></li>
+          <li id="registration"><a href="controlpanel.php?action=registration">Đăng kí</a></li>
+          <li id="majorman"><a href="controlpanel.php?action=majorman">Ngành học</a></li>
+		  <?php
+		  if (0 == strcmp( "admin", 
+						   strtolower($result->RoleName)
+						  )){ // Chỉ có admin mới có quyền thực hiện thống kê
+			echo "<li id='statistics'><a href='controlpanel.php?action=statistics'>Thống kê</a></li>";
+		  }
+		  ?>
         </ul>
       </div>
     </div>
@@ -50,12 +56,11 @@ else {// Haven't login yet
         <a id="txtAction" href="doLogout.php" >Thoát</a>
       </div>
       <div id="content"><?php include_once($choice . ".php"); ?>
-      </div>
-    </div>
-    <div id="content_footer"></div>
-    <div id="footer">
-      Thư viện Đại học Khoa học tự nhiên - 227 Nguyễn Văn Cừ P5 Q5 TP HCM
-    </div>
+      </div>	  	  
+    </div>  	
+	<div id="footer">
+		Thư viện Đại học Khoa học tự nhiên - 227 Nguyễn Văn Cừ P5 Q5 TP HCM
+	</div>	
   </div>
   
   <script src="js/jquery-2.2.1.min.js"></script>

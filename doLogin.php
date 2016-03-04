@@ -8,18 +8,13 @@ $password = $_POST["txtPassword"];
 
 $result = DB::Login($username, $password);
 
-if ($result->Success == true)
-{	
+if ($result->Success == true){	
 	$_SESSION["LOGGED_IN"] = true;
-	$_SESSION["LOGIN_INFO"] = $result;
+	$_SESSION["LOGIN_INFO"] = $result;	
 	
-	if($result->RoleName == "admin")
-		header("Location: admincp.php");
-	else
-		header("Location: visitman.php");
+	header("Location: controlpanel.php");	
 }
-else
-{
+else{
 	header("Location: login.php?error=INVALID_LOGIN_INFO");	
 }
 
