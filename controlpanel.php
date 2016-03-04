@@ -15,7 +15,8 @@ else {// Haven't login yet
 	<title>Admin control panel</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" href="css/admin.css"/>	
-	<link rel="stylesheet" href="css/visitman.css" />
+	<link rel="stylesheet" href="css/visitman.css"/>
+	<link rel="stylesheet" href="css/common.css" />
 </head>
 <body>
   <div id="main">
