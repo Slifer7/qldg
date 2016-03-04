@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2016 at 10:14 AM
+-- Generation Time: Mar 04, 2016 at 08:00 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.2
 
@@ -163,16 +163,18 @@ INSERT INTO `registration` (`studentid`, `fullname`, `majorname`, `registerdate`
 CREATE TABLE `user` (
   `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `rolename` varchar(20) COLLATE utf8_unicode_ci NOT NULL
+  `room` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`username`, `password`, `rolename`) VALUES
+INSERT INTO `user` (`username`, `password`, `room`) VALUES
 ('admin', 'admin', 'admin'),
-('linhtrung', 'linhtrung', 'quanly');
+('linhtrung', 'linhtrung', 'linhtrung'),
+('luuhanh', 'luuhanh', 'luuhanh'),
+('thamkhao', 'thamkhao', 'thamkhao');
 
 -- --------------------------------------------------------
 
@@ -184,31 +186,16 @@ CREATE TABLE `visit` (
   `visitid` int(11) NOT NULL,
   `studentid` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `major` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `timestamp` datetime NOT NULL
+  `timestamp` datetime NOT NULL,
+  `room` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `visit`
 --
 
-INSERT INTO `visit` (`visitid`, `studentid`, `major`, `timestamp`) VALUES
-(1, 'A', 'Test', '2016-02-24 08:31:42'),
-(2, 'B', 'Bsd', '2016-02-24 09:14:25'),
-(3, 'C', 'sfsdf', '2016-02-23 10:36:30'),
-(4, 'D', 'fdfda', '2016-02-24 11:18:39'),
-(5, '1212111', 'CNTT', '2016-02-25 08:10:28'),
-(7, '123', 'CĐ CNTT', '2016-02-25 10:13:06'),
-(8, '12456', 'Hóa học', '2016-02-25 10:43:31'),
-(44, '1461100', 'CĐ CNTT', '2016-02-28 17:57:54'),
-(45, '1461100', 'CĐ CNTT', '2016-02-28 17:59:52'),
-(46, '1461100', 'CĐ CNTT', '2016-02-28 18:00:44'),
-(47, '1461100', 'CĐ CNTT', '2016-02-28 18:03:50'),
-(48, '1461100', 'CĐ CNTT', '2016-02-28 18:11:01'),
-(49, '1461100', 'CĐ CNTT', '2016-02-29 12:59:22'),
-(50, '1461100', 'CĐ CNTT', '2016-03-02 14:21:33'),
-(51, '1461100', 'CĐ CNTT', '2016-03-02 14:29:42'),
-(52, '1462100', '', '2016-03-02 15:36:49'),
-(53, '1217094', 'Môi trường', '2016-03-03 15:47:49');
+INSERT INTO `visit` (`visitid`, `studentid`, `major`, `timestamp`, `room`) VALUES
+(55, '1461100', 'CĐ CNTT', '2016-03-04 13:50:50', 'linhtrung');
 
 --
 -- Indexes for dumped tables
@@ -246,7 +233,7 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT for table `visit`
 --
 ALTER TABLE `visit`
-  MODIFY `visitid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `visitid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

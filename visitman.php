@@ -33,7 +33,7 @@
 		</tr>
 	<?php		 
 		// Hiển thị các lượt đã truy cập của ngày hôm đó sắp xếp giảm dần
-		$visits = db::GetTodayVisits();			
+		$visits = db::GetTodayVisits($result->Room);			
 		
 		foreach($visits as $visit){
 			echo "<tr>";

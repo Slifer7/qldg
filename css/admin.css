@@ -28,11 +28,12 @@ h2
 
 a, a:hover
 { outline: none;
-  text-decoration: underline;
-  color: #F05A00;}
+  text-decoration: none;
+  color: #F05A00;
+}
 
 a:hover
-{ text-decoration: none;}
+{ text-decoration: underline;}
 
 ul
 { margin: 2px 0 22px 17px;}

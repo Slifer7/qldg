@@ -5,8 +5,7 @@
 		if ("INVALID_LOGIN_INFO" == $_REQUEST["error"])	{
 			$error = "Tên đăng nhập hoặc mật khẩu không đúng.<br/><br/>";
 		}
-	}
-	
+	}	
 ?>
 
 <html>
@@ -14,7 +13,7 @@
 		<title> Login </title>
 		<meta charset="utf-8"/>
 		<script src="js/login.js" ></script>
-		<link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+		<link rel='stylesheet prefetch' href='css/jquery-ui.css'>
 		<link rel="stylesheet" href="css/login.css" />
 	</head>
 	
@@ -35,7 +34,7 @@
 			</form>
 		</div>
 		
-		<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-		<script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+		<script src='js/jquery-2.2.1.min.js'></script>
+		<script src='js/jquery-ui.min.js'></script>
 	</body>
 </html>

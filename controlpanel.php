@@ -4,10 +4,6 @@ session_start();
 
 if (isset($_SESSION["LOGGED_IN"])){
 	$result = $_SESSION["LOGIN_INFO"];
-	
-	if (0 != strcmp( "admin", strtolower($result->RoleName) ) )	{ // No admin right
-		header("Location: login.php");
-	}
 }
 else {// Haven't login yet
 	// Redirect to log in page
@@ -34,16 +30,21 @@ else {// Haven't login yet
 			if (isset($_REQUEST["action"])){
 				$choice = $_REQUEST["action"];
 			}
+			if (0 != strcmp( "admin", 
+						   strtolower($result->Room)
+						   )){ // Admin thì không xử lí lượt truy cập
+				echo "<li id='visitman'><a href='controlpanel.php?action=visitman'>Lượt truy cập</a></li>";          
+			}
 		  ?>		  
-          <li id="visitman"><a href="controlpanel.php?action=visitman">Lượt truy cập</a></li>          
-          <li id="accounts"><a href="controlpanel.php?action=accounts">Tài khoản</a></li>
+          
           <li id="registration"><a href="controlpanel.php?action=registration">Đăng kí</a></li>
           <li id="majorman"><a href="controlpanel.php?action=majorman">Ngành học</a></li>
 		  <?php
 		  if (0 == strcmp( "admin", 
-						   strtolower($result->RoleName)
-						  )){ // Chỉ có admin mới có quyền thực hiện thống kê
-			echo "<li id='statistics'><a href='controlpanel.php?action=statistics'>Thống kê</a></li>";
+						   strtolower($result->Room)
+						  )){ // Chỉ có admin mới có quyền thực hiện thống kê và quản lí tài khoản
+			echo "<li id='accounts'><a href='controlpanel.php?action=accounts'>Tài khoản</a></li>";
+			echo "<li id='statistics'><a href='controlpanel.php?action=statistics'>Thống kê</a></li>";			
 		  }
 		  ?>
         </ul>
@@ -52,8 +53,8 @@ else {// Haven't login yet
     <div id="site_content">
       <div class="sidebar">
         <h2>Bảng điểu khiển</h2>
-        <a id="txtUsername" href="profile.php"><?php echo $_SESSION["LOGIN_INFO"]->Username; ?></a><br/>
-        <a id="txtAction" href="doLogout.php" >Thoát</a>
+        <img src="img/user.png" style="padding-left: 2px; padding-right: 2px;" /> <a id="txtUsername" href="profile.php"><b><?php echo $_SESSION["LOGIN_INFO"]->Username; ?></b></a><br/>
+        <img src="img/logout.png"style="position: relative; padding-top: 5px; top: 3px;"/> <a id="txtAction" href="doLogout.php" >Thoát</a>
       </div>
       <div id="content"><?php include_once($choice . ".php"); ?>
       </div>	  	  

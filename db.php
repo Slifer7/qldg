@@ -21,38 +21,36 @@ class DB
 		return $connection;
 	}
 	
-	public static function Login($username, $password) { //: LoginResult
-		$result = new LoginResult();
+	public static function Login($username, $password){ 
+		$result = new stdClass();
 		
 		$connection = self::Connect();
+		$connection->query("set names 'utf8'");
 		
 		$username = $connection->real_escape_string($username);
 		$password = $connection->real_escape_string($password);		
 		$sql = "select * from user where username='$username' and password='$password'";
-		
-		$connection->query("set names 'utf8'");
 		$reader = $connection->query($sql);				
 		
-		if ($reader->num_rows > 0)
-		{
-			$row = $reader->fetch_assoc();
-			$result->Username = $username;
+		if ($reader->num_rows > 0){
 			$result->Success = true;
-			$result->RoleName = $row["rolename"];
+			
+			$row = $reader->fetch_assoc();			
+			$result->Username = $username;			
+			$result->Room = $row["room"];
 		}
 				
 		$connection->close();
 		return $result;
 	}
 	
-	public static function GetTodayVisits() { //: VisitInfo	[]
+	public static function GetTodayVisits($room) { //: VisitInfo	[]
 		$result = array();
 		
 		$connection = self::Connect();
+		$connection->query("set names 'utf8'");	
 		
-		$sql = "select * from Visit v join Registration r on v.studentID = r.studentID where year(now()) = year(timestamp) and month(now()) = month(timestamp) and day(now()) = day(timestamp) order by timestamp desc";
-		
-		$connection->query("set names 'utf8'");
+		$sql = "select * from Visit v join Registration r on v.studentID = r.studentID where year(now()) = year(timestamp) and month(now()) = month(timestamp) and day(now()) = day(timestamp) and room='$room' order by timestamp desc";		
 		$reader = $connection->query($sql);
 		
 		if ($reader->num_rows > 0) {
@@ -73,7 +71,7 @@ class DB
 	}
 	
 	// Thêm một lượt truy cập vào CSDL
-	public static function InsertNewVisit($studentID) //: VisitInfo
+	public static function InsertNewVisit($studentID, $room) //: VisitInfo
 	{		
 		$majorName = self::_extractMajorCodeFromStudentID($studentID);				
 		$visitInfo = new VisitInfo(-1, $studentID, $majorName, NULL);
@@ -82,9 +80,9 @@ class DB
 		$reginfo = self::GetRegistrationInfoByStudentID($studentID);
 		$visitInfo->FullName = $reginfo->FullName;
 		$connection = self::Connect();
-		
-		$sql = "insert into Visit(studentid, major, timestamp) values('$studentID', '$majorName', now())";
 		$connection->query("set names 'utf8'");
+		
+		$sql = "insert into Visit(studentid, major, timestamp, room) values('$studentID', '$majorName', now(), '$room')";
 		$result = $connection->query($sql);
 		
 		if ($result == TRUE) {
