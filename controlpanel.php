@@ -71,6 +71,7 @@ else {// Haven't login yet
   <script src="js/jquery-2.2.1.min.js"></script>
   <script src="js/visitman.js"></script>
   <script src="js/majorman.js"></script>	
+  <script src="js/statistics.js"></script>
   <script type="text/javascript">
 	document.getElementById("<?php echo $choice; ?>").className = "selected";
   </script>

@@ -7,6 +7,7 @@ function btnCheckStudentID_Click() {
 	if (info.length != 0) { // invalid input data 
 		var txtInfo = document.getElementById("txtInfo");
 		txtInfo.innerHTML = info;
+		txtInfo.className = "Error";
 	}
 	else {
 		var xhttp = new XMLHttpRequest();
@@ -21,6 +22,7 @@ function btnCheckStudentID_Click() {
 				if (reginfo.StudentID.length == 0) { // Không có thông tin từ server
 					errorMsg = "Sinh viên chưa đăng kí sử dụng thư viện.<br/><br/>";
 					txtFullName.value = "";
+					txtInfo.className = "Error";
 				}
 				else {
 									
@@ -28,7 +30,8 @@ function btnCheckStudentID_Click() {
 					txtFullName.value = reginfo.FullName;
 				}	
 
-				txtInfo.innerHTML = errorMsg;				
+				txtInfo.innerHTML = errorMsg;	
+				 				
 			}
 		};
 
@@ -57,18 +60,19 @@ function btnInsertStudentID_Click() {
 		// Status feedback
 		var txtInfo = document.getElementById("txtInfo");
 		txtInfo.innerHTML = info;
+		txtInfo.className = "Error";
 	}
 	else {
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
-								console.log(xhttp.responseText);
-				var visitInfo = JSON.parse(xhttp.responseText);
-				
+				var visitInfo = JSON.parse(xhttp.responseText);				
+				var txtInfo = document.getElementById("txtInfo");
 				var info = "";
 				
 				if (visitInfo.VisitID == -1) {
 					info = "Có lỗi khi thêm lượt truy cập của sinh viên. <br/><br/>";	
+					txtInfo.className = "Error";
 				}
 				else {										
 					// Chèn sinh viên mới vào đầu bảng
@@ -79,7 +83,8 @@ function btnInsertStudentID_Click() {
 					row.insertCell(2).innerHTML = visitInfo.Major;
 					row.insertCell(3).innerHTML = visitInfo.Date;
 					
-					info = "Đã thêm thành công lượt truy cập của sinh viên có mã số: " + visitInfo.StudentID + " - " + visitInfo.FullName + "<br/><br/>";
+					info = "Đã thêm thành công lượt truy cập của sinh viên có mã số: " + visitInfo.StudentID + " - " + visitInfo.FullName + "<br/><br/>";					
+					txtInfo.className = "Info";
 					
 					// Reset form cho lần nhập thông tin kế
 					txtStudentID = document.getElementById("txtStudentID")
@@ -90,7 +95,6 @@ function btnInsertStudentID_Click() {
 					txtFullName.value = "";
 				}
 				
-				var txtInfo = document.getElementById("txtInfo");
 				txtInfo.innerHTML = info;
 			}
 		};

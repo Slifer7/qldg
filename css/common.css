@@ -1,3 +1,15 @@
-.center
+.Center
 {
 	text-align: center;}
+	
+.FullWidth
+{
+	width: 100%;}
+	
+.Error
+{
+	color: red;}
+	
+.Info
+{
+	color: blue;}
