@@ -1,24 +1,24 @@
-function btnShowStatistics_Click(){
-	if (checkValidDates()){
+function btnShowStatistics_Click(){	
+	if (true == checkValidDates()){
 		var fromDate = moment($("#txtFromDate").val(), "DD/MM/YYYY", true);
 		var toDate = moment($("#txtToDate").val(), "DD/MM/YYYY", true);
 		var room = $("#cmbReadingRoom").val();
 		var major = $("#cmbMajor").val();	
-
-		$.ajax("url": "getStatistics.php",
+		
+		$.ajax({"url": "getStatistics.php",
 			"type" : "GET",
 			"data" : {
-				"FromDate" : fromDate,
-				"ToDate"   : toDate,
+				"FromDate" : fromDate.format(),
+				"ToDate"   : toDate.format(),
 				"Room"     : room,
 				"Major"    : major
 			},
-			"success" : function(data)){
-				var a = JSON.parse(data);
+			"success" : function(data){
+				// var a = JSON.parse(data);
 				
-				console.log(a);
+				// console.log(a);
 			}
-		}
+		});
 	}
 }
 
@@ -27,34 +27,35 @@ function checkValidDates(){
 	
 	// Kiểm tra ngày bắt đầu
 	var txtFromDate = $("#txtFromDate");
-	var error = checkValidDateFormat(txtFromDate.value);
+	var error = checkValidDateFormat(txtFromDate.val());	
 	
 	if (error.length != 0){
-		txtInfo.innerHTML = error;
+		txtInfo.text(error);
 		txtFromDate.focus();
 		return false;
 	} //--------------------------
 	
 	// Kiểm tra ngày kết thúc
 	var txtToDate = $("#txtToDate");
-	error = checkValidDateFormat(txtToDate.value);
+	error = checkValidDateFormat(txtToDate.val());
 	
 	if (error.length != 0){
-		txtInfo.innerHTML = error;
+		txtInfo.text(error);
 		txtToDate.focus();
 		return false;
 	} //--------------------------
 	
 	// Kiểm tra ngày bắt đầu <= ngày kết thúc
 	var DAYORDER = "Ngày bắt đầu phải bằng hoặc trước ngày kết thúc.";
-	var fromDate = moment(txtFromDate.value, "DD/MM/YYYY", true);
-	var toDate = moment(txtToDate.value, "DD/MM/YYYY", true);
+	var fromDate = moment(txtFromDate.val(), "DD/MM/YYYY", true);
+	var toDate = moment(txtToDate.val(), "DD/MM/YYYY", true);
 	
-	console.log(fromDate.date() + " " + toDate.date());
 	if (true == fromDate.isAfter(toDate) ){
-		txtInfo.innerHTML = DAYORDER;
+		txtInfo.text(DAYORDER);
 		return false;
 	} //--------------------------
+	
+	return true;
 }
 
 function checkValidDateFormat(day){	

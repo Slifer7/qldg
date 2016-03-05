@@ -7,9 +7,6 @@ require_once("db.php");
 	<span id="txtInfo" class="Error"></span>
 	<form method="get" action="showStatistics.php">
 		<table>
-			<tr>
-				<td></td>
-			</tr>
 			<tr><?php
 					$today = date("d/m/Y");
 				?>
@@ -32,7 +29,7 @@ require_once("db.php");
 						$majors = db::GetAllMajors();
 						
 						foreach($majors as $major){
-							echo "<option value='$major->Code'>$major->Code - $major->MajorName</option>";
+							echo "<option value='$major->MajorName'>$major->Code - $major->MajorName</option>";
 						}
 					?>
 				</select>

@@ -17,6 +17,7 @@ class DB
 		if ($connection->connect_error) {
 			die("Connection failed: " . $connection->connect_error);
 		}
+		$connection->query("set names 'utf8'");
 		
 		return $connection;
 	}
@@ -25,7 +26,6 @@ class DB
 		$result = new stdClass();
 		
 		$connection = self::Connect();
-		$connection->query("set names 'utf8'");
 		
 		$username = $connection->real_escape_string($username);
 		$password = $connection->real_escape_string($password);		
@@ -48,7 +48,6 @@ class DB
 		$result = array();
 		
 		$connection = self::Connect();
-		$connection->query("set names 'utf8'");	
 		
 		$sql = "select * from Visit v join Registration r on v.studentID = r.studentID where year(now()) = year(timestamp) and month(now()) = month(timestamp) and day(now()) = day(timestamp) and room='$room' order by timestamp desc";		
 		$reader = $connection->query($sql);
@@ -80,7 +79,6 @@ class DB
 		$reginfo = self::GetRegistrationInfoByStudentID($studentID);
 		$visitInfo->FullName = $reginfo->FullName;
 		$connection = self::Connect();
-		$connection->query("set names 'utf8'");
 		
 		$sql = "insert into Visit(studentid, major, timestamp, room) values('$studentID', '$majorName', now(), '$room')";
 		$result = $connection->query($sql);
@@ -129,8 +127,6 @@ class DB
 		$majorName = "";
 		
 		$connection = self::Connect();
-		
-		$connection->query("set names 'utf8'");
 		$sql = "select majorname from major where code='$code'";				
 		$reader = $connection->query($sql);
 		
@@ -146,8 +142,6 @@ class DB
 	public static function GetRegistrationInfoByStudentID($studentID) {
 		$reginfo = new RegistrationInfo("", "", "", NULL);
 		$connection = self::Connect();
-		
-		$connection->query("set names 'utf8'");
 		$sql = "select * from Registration where studentid='$studentID'";	
 		$reader = $connection->query($sql);
 		
@@ -169,8 +163,7 @@ class DB
 	{
 		$majors = array();
 		$connection = self::Connect();
-		
-		$connection->query("set names 'utf8'");
+
 		$sql = "select * from major";	
 		$reader = $connection->query($sql);
 		

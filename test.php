@@ -1,8 +1,5 @@
 <?php
-
-
-?>
-<html>
+/* <html>
 	<head>
 		<script type="text/javascript" src="js/moment.js" ></script>
 	</head>
@@ -12,4 +9,10 @@
 			console.log(today.month());
 		</script>
 	</body>
-</html>
+</html> */
+
+require_once("VisitInfo.php");
+
+	
+
+?>

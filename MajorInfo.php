@@ -21,9 +21,7 @@ class MajorInfo
 		$importResult->FailureCount = 0;
 		$importResult->DuplicateIDs = array();
 		
-		$connection = db::Connect();
-		$connection->query("set names 'utf8'");
-		
+		$connection = db::Connect();		
 		$sql = "insert into Major values(?, ?)";
 		$statement = $connection->prepare($sql);
 		
