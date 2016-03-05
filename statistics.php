@@ -4,7 +4,7 @@ require_once("db.php");
 <div>
 	<h1>Thống kê lượt truy cập</h1>
 	<br/>
-	<span id="txtInfo" ></span>
+	<span id="txtInfo" class="Error"></span>
 	<form method="get" action="showStatistics.php">
 		<table>
 			<tr>
@@ -12,17 +12,13 @@ require_once("db.php");
 			</tr>
 			<tr><?php
 					$today = date("d/m/Y");
-					/* $todayString = sprintf("%s/%s/%s/", 
-											$today->getDay(), 
-											$today->getMonth() + 1, 
-											$today->getYear()); */
 				?>
 				<td>Từ ngày:</td> <td><input id="txtFromDate" name="txtFromDate" type="text" value="<?php echo $today;?>" required/></td>
-				<td>Đến ngày:</td><td><input id="txtFromDate" name="txtFromDate" type="text" value="<?php echo $today;?>" required/></td>				
+				<td>Đến ngày:</td><td><input id="txtToDate" name="txtToDate" type="text" value="<?php echo $today;?>" required/></td>				
 			</tr>
 			<tr>
 				<td>Phòng đọc:</td>
-				<td><select class="FullWidth">
+				<td><select id="cmbReadingRoom" class="FullWidth">
 					<option value="all">Tất cả</option>	
 					<option value="linhtrung">Linh Trung</option>	
 					<option value="thamkhao">Tham khảo</option>	
@@ -30,7 +26,7 @@ require_once("db.php");
 				</select>
 				</td>
 				<td>Ngành học:</td>
-				<td><select class="FullWidth">
+				<td><select id="cmbMajor" class="FullWidth">
 					<option value="all">Tất cả</option>	
 					<?php
 						$majors = db::GetAllMajors();
@@ -44,12 +40,12 @@ require_once("db.php");
 			</tr>
 			<tr>
 				<td colspan="4" class="Center">
-					<input type="button" value="Thống kê" onclick="showStatistics()" /> 
-					<input type="button" value="Xuất excel" onclick="export2Excel()"/>
+					<input type="button" value="Thống kê" onclick="btnShowStatistics_Click()" /> 
+					<input type="button" value="Xuất excel" onclick="btnExport2Excel_Click()"/>
 				</td>
 			</tr>
 			
 		</table>
 	</form>
-	
 </div>
+<script src="js/moment.js"></script>

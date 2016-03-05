@@ -1,4 +1,5 @@
 <?php
+require_once("db.php");
 
 class VisitInfo
 {
@@ -13,6 +14,15 @@ class VisitInfo
 		$this->StudentID = $student;
 		$this->Major = $mj;
 		$this->Date = $d;
+	}
+	
+	public static function GetVisits($from, $to, $room, $major){
+		$connection = db::Connect();
+		
+		
+		
+		$connection->close();
+		return ;
 	}
 }
 
