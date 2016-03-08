@@ -57,22 +57,29 @@ function btnInsertStudentID_Click() {
 	var info = CheckValidStudentInfo();
 	
 	if (info.length != 0) { // invalid input data 
-		// Status feedback
-		var txtInfo = document.getElementById("txtInfo");
-		txtInfo.innerHTML = info;
-		txtInfo.className = "Error";
+		$("#txtInfo").html(info).attr("class", "Error");
 	}
 	else {
-		var xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function() {
-			if (xhttp.readyState == 4 && xhttp.status == 200) {
-				var visitInfo = JSON.parse(xhttp.responseText);				
-				var txtInfo = document.getElementById("txtInfo");
+		insertVisit($("#txtStudentID").val());	
+	}	
+}
+
+function insertVisit(id){
+	var len = id.length;
+	
+	if (len == 7 || len == 8){ // 
+		$.ajax({
+			"url": "doInsertVisit.php",
+			"type": "GET",
+			"data":  "StudentID=" + id,
+			"success": function(data){
+				var visitInfo = JSON.parse(data);				
+				var txtInfo = $("#txtInfo");
 				var info = "";
 				
 				if (visitInfo.VisitID == -1) {
 					info = "Có lỗi khi thêm lượt truy cập của sinh viên. Có thể sinh viên chưa đăng kí.<br/><br/>";	
-					txtInfo.className = "Error";
+					txtInfo.attr("class", "Error");
 				}
 				else {										
 					// Chèn sinh viên mới vào đầu bảng
@@ -84,43 +91,36 @@ function btnInsertStudentID_Click() {
 					row.insertCell(3).innerHTML = visitInfo.Date;
 					
 					info = "Đã thêm thành công lượt truy cập của sinh viên có mã số: " + visitInfo.StudentID + " - " + visitInfo.FullName + "<br/><br/>";					
-					txtInfo.className = "Info";
+					txtInfo.attr("class", "Info");
 					
 					// Reset form cho lần nhập thông tin kế
-					txtStudentID = document.getElementById("txtStudentID")
-					txtStudentID.focus();					
-					txtStudentID.value = "";
+					$("#txtStudentID").focus().text("");
 					
-					txtFullName = document.getElementById("txtFullName");
-					txtFullName.value = "";
+					txtFullName = $("#txtFullName");
+					txtFullName.text("");
 				}
 				
-				txtInfo.innerHTML = info;
+				txtInfo.html(info);
 			}
-		};
-
-		xhttp.open("POST", "doInsertVisit.php", true); // Asynchronous
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		
-		var studentID = document.getElementById("txtStudentID").value;
-		xhttp.send("StudentID=" + studentID );		
-	}	
-}
-
-function txtStudentID_TextChanged(){		
-	var len = $("#txtStudentID").val().length;
-	
-	if (len == 7 || len == 8){ // 
-		btnInsertStudentID_Click();
+		});
 	}
 }
 
-function test(){
-	console.log("change");
+function txtStudentID_Pasted(){		
+	var id = undefined;
+	if (window.clipboardData && window.clipboardData.getData) { // IE
+		id = window.clipboardData.getData('Text');
+	} else if (event.clipboardData && event.clipboardData.getData) {
+		id = event.clipboardData.getData('text/plain');
+	}	
+	var len = id.length;
+	
+	if (len == 7 || len == 8){ 
+		insertVisit(id);
+	}
 }
 
 function txtStudentID_KeyDown(){
 	var code = String.fromCharCode(event.keyCode);
-	console.log(code);
-	return "0123456789CBN".indexOf(code) > 0;
+	return "0123456789CBN".indexOf(code) >= 0;
 }

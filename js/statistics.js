@@ -8,15 +8,14 @@ function btnShowStatistics_Click(){
 		$.ajax({"url": "getStatistics.php",
 			"type" : "GET",
 			"data" : {
-				"FromDate" : fromDate.format(),
-				"ToDate"   : toDate.format(),
+				"FromDate" : fromDate.format("YYYY-MM-DD"),
+				"ToDate"   : toDate.format("YYYY-MM-DD"),
 				"Room"     : room,
 				"Major"    : major
 			},
-			"success" : function(data){
-				// var a = JSON.parse(data);
-				
-				// console.log(a);
+			"success" : function(data){								
+				var a = JSON.parse(data);
+				console.log(a.length);
 			}
 		});
 	}

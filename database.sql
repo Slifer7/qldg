@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2016 at 03:54 AM
+-- Generation Time: Mar 08, 2016 at 03:13 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.3
 
@@ -195,9 +195,19 @@ CREATE TABLE `visit` (
 --
 
 INSERT INTO `visit` (`visitid`, `studentid`, `major`, `timestamp`, `room`) VALUES
-(59, '1461100', 'CĐ CNTT', '2016-03-08 09:43:37', 'linhtrung'),
-(60, '1461100', 'CĐ CNTT', '2016-03-08 09:43:44', 'linhtrung'),
-(61, '1461100', 'CĐ CNTT', '2016-03-08 09:43:45', 'linhtrung');
+(70, '1461100', 'CĐ CNTT', '2016-03-08 16:38:29', 'linhtrung'),
+(71, '1461100', 'CĐ CNTT', '2016-03-08 18:55:28', 'linhtrung'),
+(72, '1461100', 'CĐ CNTT', '2016-03-08 18:55:51', 'linhtrung'),
+(73, '1461100', 'CĐ CNTT', '2016-03-08 19:07:21', 'thamkhao'),
+(74, '1461100', 'CĐ CNTT', '2016-03-08 19:28:36', 'thamkhao'),
+(75, '1461100', 'CĐ CNTT', '2016-03-08 19:30:00', 'thamkhao'),
+(76, '1461100', 'CĐ CNTT', '2016-03-08 19:32:22', 'thamkhao'),
+(77, '1461100', 'CĐ CNTT', '2016-03-08 19:32:43', 'thamkhao'),
+(78, '1461100', 'CĐ CNTT', '2016-03-08 20:13:38', 'thamkhao'),
+(79, '1461100', 'CĐ CNTT', '2016-03-08 20:14:31', 'thamkhao'),
+(80, '1461100', 'CĐ CNTT', '2016-03-08 20:15:05', 'thamkhao'),
+(81, '1461100', 'CĐ CNTT', '2016-03-08 20:16:31', 'thamkhao'),
+(82, '1461100', 'CĐ CNTT', '2016-03-08 20:20:18', 'thamkhao');
 
 --
 -- Indexes for dumped tables
@@ -235,7 +245,7 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT for table `visit`
 --
 ALTER TABLE `visit`
-  MODIFY `visitid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `visitid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

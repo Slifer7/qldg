@@ -43,31 +43,28 @@ class VisitInfo
 	public static function GetVisits($from, $to, $room, $major){
 		$connection = db::Connect();	
 		
-		$sql = "select * from visit where timestamp between $from and $to";
-		if (strlen($room) != 0){
+		$sql = "select * from visit where cast(timestamp as date) between cast('$from' as date) and cast('$to' as date)";
+		if (0 != strcmp($room, "all")){
 			$sql .= " and room='$room'";
 		} 
 		
-		if (strlen($major) != 0){
+		if (0 != strcmp($major, "all")){
 			$sql .= " and major='$major'";
 		}
+		error_log($sql);
 		
 		$reader = $connection->query($sql);
-		if($reader->num_rows > 0 ){
-			$result = array();
-			$count = 0;
+		$result = array();
+		
+		if($reader->num_rows > 0 ){						
 			while($row = $reader->fetch_assoc()){
 				$item = new stdClass();
-				$item->id = $row["studentid"];
-				$item->name = $row["fullname"];
+				$item->id = $row["studentid"];				
 				$item->major = $row["major"];
 				$item->room = $row["room"];
 				
-				array_push($result, $item);
-				$count++;
+				array_push($result, $item);				
 			}
-			
-			$result->TotalRecords = $count;
 		}
 		$connection->close();
 		return $result;

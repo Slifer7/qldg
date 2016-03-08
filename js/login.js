@@ -1,8 +1,8 @@
 function ValidateLoginData()
 {
-	var username = document.getElementById("txtUsername").value;
-	var password = document.getElementById("txtPassword").value;
-	var txtErrorInfo = document.getElementById("txtErrorInfo");	
+	var username = $("#txtUsername").val();
+	var password = $("#txtPassword").val();
+	var txtErrorInfo = $("#txtErrorInfo");	
 	
 	var errorInfo = "" 
 	
