@@ -16,6 +16,30 @@ class VisitInfo
 		$this->Date = $d;
 	}
 	
+	public static function GetTodayVisits($room) { //: VisitInfo	[]
+		$result = array();		
+		$connection = db::Connect();
+		
+		$sql = "select * from Visit v join Registration r on v.studentID = r.studentID where year(now()) = year(timestamp) and month(now()) = month(timestamp) and day(now()) = day(timestamp) and room='$room' order by timestamp desc";		
+		$reader = $connection->query($sql);
+		
+		if ($reader->num_rows > 0) {
+			while ($row = $reader->fetch_assoc()) {
+				$vid = $row["visitid"];
+				$studentid = $row["studentid"];
+				$major = $row["major"];
+				$date = $row["timestamp"];
+				
+				$item = new VisitInfo($vid, $studentid, $major, $date);				
+				$item->FullName = $row["fullname"];
+				array_push($result, $item);
+			}
+		}
+		
+		$connection->close();		
+		return $result;
+	}
+	
 	public static function GetVisits($from, $to, $room, $major){
 		$connection = db::Connect();	
 		
@@ -48,6 +72,8 @@ class VisitInfo
 		$connection->close();
 		return $result;
 	}
+	
+	
 }
 
 ?>

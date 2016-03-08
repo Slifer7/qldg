@@ -44,60 +44,41 @@ class DB
 		return $result;
 	}
 	
-	public static function GetTodayVisits($room) { //: VisitInfo	[]
-		$result = array();
-		
-		$connection = self::Connect();
-		
-		$sql = "select * from Visit v join Registration r on v.studentID = r.studentID where year(now()) = year(timestamp) and month(now()) = month(timestamp) and day(now()) = day(timestamp) and room='$room' order by timestamp desc";		
-		$reader = $connection->query($sql);
-		
-		if ($reader->num_rows > 0) {
-			while ($row = $reader->fetch_assoc()) {
-				$vid = $row["visitid"];
-				$studentid = $row["studentid"];
-				$major = $row["major"];
-				$date = $row["timestamp"];
-				
-				$item = new VisitInfo($vid, $studentid, $major, $date);				
-				$item->FullName = $row["fullname"];
-				array_push($result, $item);
-			}
-		}
-		
-		$connection->close();		
-		return $result;
-	}
-	
 	// Thêm một lượt truy cập vào CSDL
 	public static function InsertNewVisit($studentID, $room) //: VisitInfo
 	{		
-		$majorName = self::_extractMajorCodeFromStudentID($studentID);				
+		$majorName = self::ExtractMajorCodeFromStudentID($studentID);				
 		$visitInfo = new VisitInfo(-1, $studentID, $majorName, NULL);
 		
 		// Do tách bảng nên phải vào bảng đăng kí để lấy tên đầy đủ của sinh viên
 		$reginfo = self::GetRegistrationInfoByStudentID($studentID);
-		$visitInfo->FullName = $reginfo->FullName;
-		$connection = self::Connect();
 		
-		$sql = "insert into Visit(studentid, major, timestamp, room) values('$studentID', '$majorName', now(), '$room')";
-		$result = $connection->query($sql);
-		
-		if ($result == TRUE) {
-			$visitInfo->VisitID = $connection->insert_id;
+		if (strlen($reginfo->FullName) == 0) // Chưa đăng kí nên không có tên
+			return $visitInfo;
+		else {
+			$visitInfo->FullName = $reginfo->FullName;
+			$connection = self::Connect();
 			
-			// Vấn đề với việc tạo ra ngày giờ từ php, nên phải lấy ngày giờ từ mysql cho lẹ
-			$sql = "select now()";
-			$reader = $connection->query($sql);
-			$row = $reader->fetch_array();
-			$visitInfo->Date = $row[0];			
-		}		
+			$sql = "insert into Visit(studentid, major, timestamp, room) values('$studentID', '$majorName', now(), '$room')";
+			$result = $connection->query($sql);
+			
+			if ($result == TRUE) {
+				$visitInfo->VisitID = $connection->insert_id;
+				
+				// Vấn đề với việc tạo ra ngày giờ từ php, nên phải lấy ngày giờ từ mysql cho lẹ
+				$sql = "select now()";
+				$reader = $connection->query($sql);
+				$row = $reader->fetch_array();
+				$visitInfo->Date = $row[0];			
+			}		
+			
+			$connection->close();		
+		}	
 		
-		$connection->close();		
 		return $visitInfo;
 	}	
 	
-	private static function _extractMajorCodeFromStudentID($id){
+	private static function ExtractMajorCodeFromStudentID($id){
 		$code = "";
 
 		if(strlen($id) == 7) { // Mã số sinh viên bình thường

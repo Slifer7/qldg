@@ -33,18 +33,15 @@ else {// Haven't login yet
 				echo "<li id='visitman'><a href='controlpanel.php?action=visitman'>Lượt truy cập</a></li>";          
 				$choice = "visitman";
 			}
-		  ?>		  
-          
-          <li id="registration"><a href="controlpanel.php?action=registration">Đăng kí</a></li>
-          <li id="majorman"><a href="controlpanel.php?action=majorman">Ngành học</a></li>
-		  <?php
-		  if (0 == strcmp( "admin", 
+		    if (0 == strcmp( "admin", 
 						   strtolower($result->Room)
 						  )){ // Chỉ có admin mới có quyền thực hiện thống kê và quản lí tài khoản
-			$choice = "statistics";
-			echo "<li id='accounts'><a href='controlpanel.php?action=accounts'>Tài khoản</a></li>";
-			echo "<li id='statistics'><a href='controlpanel.php?action=statistics'>Thống kê</a></li>";			
-		  }
+				$choice = "statistics";
+				echo "<li id='registration'><a href='controlpanel.php?action=registration'>Đăng kí</a></li>";
+				echo "<li id='majorman'><a href='controlpanel.php?action=majorman'>Ngành học</a></li>";
+				echo "<li id='accounts'><a href='controlpanel.php?action=accounts'>Tài khoản</a></li>";
+				echo "<li id='statistics'><a href='controlpanel.php?action=statistics'>Thống kê</a></li>";			
+		    }
 		  ?>
         </ul>
       </div>

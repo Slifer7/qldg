@@ -71,7 +71,7 @@ function btnInsertStudentID_Click() {
 				var info = "";
 				
 				if (visitInfo.VisitID == -1) {
-					info = "Có lỗi khi thêm lượt truy cập của sinh viên. <br/><br/>";	
+					info = "Có lỗi khi thêm lượt truy cập của sinh viên. Có thể sinh viên chưa đăng kí.<br/><br/>";	
 					txtInfo.className = "Error";
 				}
 				else {										
@@ -105,4 +105,22 @@ function btnInsertStudentID_Click() {
 		var studentID = document.getElementById("txtStudentID").value;
 		xhttp.send("StudentID=" + studentID );		
 	}	
+}
+
+function txtStudentID_TextChanged(){		
+	var len = $("#txtStudentID").val().length;
+	
+	if (len == 7 || len == 8){ // 
+		btnInsertStudentID_Click();
+	}
+}
+
+function test(){
+	console.log("change");
+}
+
+function txtStudentID_KeyDown(){
+	var code = String.fromCharCode(event.keyCode);
+	console.log(code);
+	return "0123456789CBN".indexOf(code) > 0;
 }

@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2016 at 08:00 AM
+-- Generation Time: Mar 08, 2016 at 03:54 AM
 -- Server version: 10.1.10-MariaDB
--- PHP Version: 7.0.2
+-- PHP Version: 7.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -195,7 +195,9 @@ CREATE TABLE `visit` (
 --
 
 INSERT INTO `visit` (`visitid`, `studentid`, `major`, `timestamp`, `room`) VALUES
-(55, '1461100', 'CĐ CNTT', '2016-03-04 13:50:50', 'linhtrung');
+(59, '1461100', 'CĐ CNTT', '2016-03-08 09:43:37', 'linhtrung'),
+(60, '1461100', 'CĐ CNTT', '2016-03-08 09:43:44', 'linhtrung'),
+(61, '1461100', 'CĐ CNTT', '2016-03-08 09:43:45', 'linhtrung');
 
 --
 -- Indexes for dumped tables
@@ -233,7 +235,7 @@ ALTER TABLE `visit`
 -- AUTO_INCREMENT for table `visit`
 --
 ALTER TABLE `visit`
-  MODIFY `visitid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `visitid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

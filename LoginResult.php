@@ -3,13 +3,13 @@
 	{
 		public $Username;
 		public $Success;
-		public $RoleName;
+		public $Room;
 		
 		public function __construct()
 		{
 			$this->Username = "";
 			$this->Success = false;
-			$this->RoleName = "";
+			$this->Room = "";
 		}
 	}
 ?>
