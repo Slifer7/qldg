@@ -1,13 +1,19 @@
 // Kiểm tra sinh viên có đăng kí sử dụng dịch vụ của thư viện hay chưa, nếu có, trả về tên của sinh viên này.
 function btnCheckStudentID_Click() {
+	var studentID = $("#txtStudentID").val();
+	
+	if("CBN".indexOf(studentID) >= 0){ // Mã đặc biệt
+		var info = "Mã sinh viên đặc biệt, có thể thêm lượt truy cập không cần đăng kí.<br/><br/>";
+		$("#txtInfo").html(info).attr("class", "Info");
+		return;
+	}
+	
 	// Kiểm tra có nhập dữ liệu hay chưa
-	var info = CheckValidStudentInfo();
-	var studentID = document.getElementById("txtStudentID").value;
+	var info = CheckValidStudentInfo();	
 	
 	if (info.length != 0) { // invalid input data 
-		var txtInfo = document.getElementById("txtInfo");
-		txtInfo.innerHTML = info;
-		txtInfo.className = "Error";
+		$("#txtInfo").html(info).attr("class", "Error");		
+		$("#txtFullName").val(""); // Reset phòng trường hợp luồng khác gây ra có dữ liệu sẵn
 	}
 	else {
 		var xhttp = new XMLHttpRequest();
@@ -42,13 +48,39 @@ function btnCheckStudentID_Click() {
 }
 
 // Kiểm tra dữ liệu ở giao diện có hợp lệ và đầy đủ hay chưa
-function CheckValidStudentInfo()
-{
+function CheckValidStudentInfo(){
 	var info = "";	
-	var studentID = document.getElementById("txtStudentID").value;
+	var id = $("#txtStudentID").val();
 	
-	if (studentID.length == 0)
+	if (id.length == 0)
 		info += "Chưa nhập MSSV. <br/><br/>";
+	else if (id.length == 1){
+		if(id != "C" 
+			&& id != "B" 
+			&& id != "N"){
+			info += "Độ dài MSSV không hợp lệ. <br/><br/>";
+		}			
+	}
+	else if (id.length < 7) {
+		info += "Độ dài MSSV không hợp lệ. <br/><br/>";
+	}
+	
+	return info;
+}
+
+// Các trường hợp đặc biệt là C-Cao học, B-Cán bộ, N-Ngoài trường
+function GetFullNameFromSpecialCaseCBN(){
+	var val = $("#txtStudentID").val();
+	var info = GetSpecialFullNameList();
+	
+	return info[val];
+}
+
+function GetSpecialFullNameList(){
+	var info = [];
+	info["C"] = "Cao học";
+	info["B"] = "Cán bộ";
+	info["N"] = "Ngoài trường";
 	
 	return info;
 }
@@ -93,11 +125,9 @@ function insertVisit(id){
 					info = "Đã thêm thành công lượt truy cập của sinh viên có mã số: " + visitInfo.StudentID + " - " + visitInfo.FullName + "<br/><br/>";					
 					txtInfo.attr("class", "Info");
 					
-					// Reset form cho lần nhập thông tin kế
-					$("#txtStudentID").focus().text("");
-					
-					txtFullName = $("#txtFullName");
-					txtFullName.text("");
+					// Reset form cho lần nhập thông tin kế					
+					$("#txtStudentID").val("").focus();					
+					$("#txtFullName").val("");
 				}
 				
 				txtInfo.html(info);
@@ -120,7 +150,52 @@ function txtStudentID_Pasted(){
 	}
 }
 
-function txtStudentID_KeyDown(){
-	var code = String.fromCharCode(event.keyCode);
-	return "0123456789CBN".indexOf(code) >= 0;
+// Xảy ra trước khi hiện kí tự
+function txtStudentID_KeyPress(){	
+	// Reset các control phụ thuộc
+	$("#txtInfo").html("");	
+	$("#txtFullName").val("");
+	
+	// Chuyển từ chữ thường sang chữ hoa
+	var code = String.fromCharCode(event.keyCode);	
+	if("cbn".indexOf(code) >= 0){
+		code = String.fromCharCode(event.keyCode - 32); 
+	}	
+	
+	// Gặp kí tự đặc biệt CBN thì chỉ giữ lại một kí tự thôi	
+	if("CBN".indexOf(code) >= 0){
+		$("#txtStudentID").val(code); // Thay toàn bộ mssv bằng kí tự đặc biệt 
+		$("#txtFullName").val(GetFullNameFromSpecialCaseCBN(code));
+		return false;
+	}
+	
+	// Trường hợp chỉ nhập số
+	if ("0123456789".indexOf(code) >= 0){
+		var val = $("#txtStudentID").val();
+		if (val.length == 1) {// Có thể là C, B, N đã có trước
+			if ("CBN".indexOf(val) >= 0){
+				$("#txtStudentID").val("");
+				return true;
+			}
+			else
+				return true;
+		}
+		else
+			return true;
+	}
+	
+	// Chi cho phép nhập số hoặc các chữ cái C, B, N (đã bắt ở trên) mà thôi
+	return false;
+}
+
+// Xảy ra sau khi hiện kí tự
+function txtStudentID_KeyUp(){
+	var BACKSPACE = 8;
+	var DELETE = 46;
+	var val = $("#txtStudentID").val();
+	
+	if (val.length == 0){
+		$("#txtInfo").html("");	
+		$("#txtFullName").val("");
+	}		
 }

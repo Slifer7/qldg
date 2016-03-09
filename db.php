@@ -80,27 +80,29 @@ class DB
 	
 	private static function ExtractMajorCodeFromStudentID($id){
 		$code = "";
-
+		$majorName = "";
+		
 		if(strlen($id) == 7) { // Mã số sinh viên bình thường
 			$code = substr($id, 2, 2); // Kí tự thứ 3 và 4 là mã ngành
+			$majorName = self::_getMajorName($code);
 		}
 		else if (strlen($id) == 8) { // Sinh viên đào tạo từ xa
 			$code = substr($id, 2, 1); // Kí tự thứ 3 là mã ngành
+			$majorName = self::_getMajorName($code);
 		}
 		else if (strpos($id, "C") != false) { // Cao học
 			$code = "C";
+			$majorName = "Cao học";
 		}
 		else if (strpos($id, "B") != false) { // Cán bộ
 			$code = "B";
+			$majorName = "Cán bộ";
 		}
 		else if (strpos($id, "N") != false) { // Ngoài trường
 			$code = "N";
+			$majorName = "Ngoài trường";
 		}
-
-		$majorName = "";
-		if (strlen($code) != 0)
-			$majorName = self::_getMajorName($code);
-		error_log($majorName);
+		
 		return $majorName;
 	}
 	
