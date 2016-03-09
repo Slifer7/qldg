@@ -46,69 +46,55 @@ class DB
 	
 	// Thêm một lượt truy cập vào CSDL
 	public static function InsertNewVisit($studentID, $room) //: VisitInfo
-	{		
-		$majorName = self::ExtractMajorCodeFromStudentID($studentID);				
-		$visitInfo = new VisitInfo(-1, $studentID, $majorName, NULL);
+	{	
+		$result = new stdClass();	
+		$result->VisitID = -1;
+		$result->StudentID = $studentID;
+		$result->FullName = "";
+		$result->Major = self::ExtractMajorNameFromStudentID($studentID);						
+						
+		if(strpos("CBN", $studentID) !== false){
+			$result->FullName = self::GetRegistrationInfoByStudentID($studentID)->FullName;
+		}			
 		
-		// Do tách bảng nên phải vào bảng đăng kí để lấy tên đầy đủ của sinh viên
-		$reginfo = self::GetRegistrationInfoByStudentID($studentID);
+		if(strlen($result->FullName) == 0)
+			$result->FullName = $result->Major;
 		
-		if (strlen($reginfo->FullName) == 0) // Chưa đăng kí nên không có tên
-			return $visitInfo;
-		else {
-			$visitInfo->FullName = $reginfo->FullName;
-			$connection = self::Connect();
-			
-			$sql = "insert into Visit(studentid, major, timestamp, room) values('$studentID', '$majorName', now(), '$room')";
-			$result = $connection->query($sql);
-			
-			if ($result == TRUE) {
-				$visitInfo->VisitID = $connection->insert_id;
-				
-				// Vấn đề với việc tạo ra ngày giờ từ php, nên phải lấy ngày giờ từ mysql cho lẹ
-				$sql = "select now()";
-				$reader = $connection->query($sql);
-				$row = $reader->fetch_array();
-				$visitInfo->Date = $row[0];			
-			}		
-			
-			$connection->close();		
-		}	
+		$connection = self::Connect();		
+		$sql = "insert into Visit(studentid, major, timestamp, room) values('$studentID', '$result->Major', now(), '$room')";
+		$reader = $connection->query($sql);
 		
-		return $visitInfo;
+		if ($reader == TRUE) {
+			$result->VisitID = $connection->insert_id;
+			
+			// Vấn đề với việc tạo ra ngày giờ từ php, nên phải lấy ngày giờ từ mysql cho lẹ
+			$sql = "select now()";
+			$result->Date = $connection->query($sql)->fetch_array()[0];
+		}		 
+		
+		$connection->close();
+		return $result;
 	}	
 	
-	private static function ExtractMajorCodeFromStudentID($id){
+	private static function ExtractMajorNameFromStudentID($id){
 		$code = "";
-		$majorName = "";
 		
 		if(strlen($id) == 7) { // Mã số sinh viên bình thường
-			$code = substr($id, 2, 2); // Kí tự thứ 3 và 4 là mã ngành
-			$majorName = self::_getMajorName($code);
+			$code = substr($id, 2, 2); // Kí tự thứ 3 và 4 là mã ngành			
 		}
 		else if (strlen($id) == 8) { // Sinh viên đào tạo từ xa
 			$code = substr($id, 2, 1); // Kí tự thứ 3 là mã ngành
-			$majorName = self::_getMajorName($code);
 		}
-		else if (strpos($id, "C") != false) { // Cao học
-			$code = "C";
-			$majorName = "Cao học";
-		}
-		else if (strpos($id, "B") != false) { // Cán bộ
-			$code = "B";
-			$majorName = "Cán bộ";
-		}
-		else if (strpos($id, "N") != false) { // Ngoài trường
-			$code = "N";
-			$majorName = "Ngoài trường";
+		else if (strlen($id) == 1){
+			$code = $id;
 		}
 		
+		$majorName = self::_getMajorName($code);		
 		return $majorName;
 	}
 	
 	private static function _getMajorName($code){
-		$majorName = "";
-		
+		$majorName = "";						
 		$connection = self::Connect();
 		$sql = "select majorname from major where code='$code'";				
 		$reader = $connection->query($sql);

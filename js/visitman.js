@@ -99,7 +99,7 @@ function btnInsertStudentID_Click() {
 function insertVisit(id){
 	var len = id.length;
 	
-	if (len == 7 || len == 8){ // 
+	if (len == 7 || len == 8 || "CBN".indexOf(id) >= 0){ // Độ dài MSSV hợp lệ hay có kí tự đặc biệt
 		$.ajax({
 			"url": "doInsertVisit.php",
 			"type": "GET",
@@ -122,7 +122,7 @@ function insertVisit(id){
 					row.insertCell(2).innerHTML = visitInfo.Major;
 					row.insertCell(3).innerHTML = visitInfo.Date;
 					
-					info = "Đã thêm thành công lượt truy cập của sinh viên có mã số: " + visitInfo.StudentID + " - " + visitInfo.FullName + "<br/><br/>";					
+					info = "Đã thêm thành công lượt truy cập của sinh viên: " + visitInfo.StudentID + " - " + visitInfo.FullName + "<br/><br/>";					
 					txtInfo.attr("class", "Info");
 					
 					// Reset form cho lần nhập thông tin kế					
@@ -174,14 +174,11 @@ function txtStudentID_KeyPress(){
 		var val = $("#txtStudentID").val();
 		if (val.length == 1) {// Có thể là C, B, N đã có trước
 			if ("CBN".indexOf(val) >= 0){
-				$("#txtStudentID").val("");
-				return true;
+				$("#txtStudentID").val(""); // Xóa trống nhường chỗ cho số
 			}
-			else
-				return true;
 		}
-		else
-			return true;
+		
+		return true;
 	}
 	
 	// Chi cho phép nhập số hoặc các chữ cái C, B, N (đã bắt ở trên) mà thôi
