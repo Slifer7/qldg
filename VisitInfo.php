@@ -62,7 +62,7 @@ class VisitInfo
 				$item->id = $row["studentid"];				
 				$item->major = $row["major"];
 				$item->room = $row["room"];
-				
+				$item->timestamp = $row["timestamp"];
 				array_push($result, $item);				
 			}
 		}

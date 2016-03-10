@@ -40,9 +40,22 @@ require_once("db.php");
 					<input type="button" value="Thống kê" onclick="btnShowStatistics_Click()" /> 
 					<input type="button" value="Xuất excel" onclick="btnExport2Excel_Click()"/>
 				</td>
-			</tr>
-			
+			</tr>			
 		</table>
 	</form>
+	<br/>
+	<br/>
+	<div id="divResult">
+		<h3>Kết quả thống kê</h3>
+		<br/>
+		<table id="tblVisits">
+			<tr>
+				<th>Thời gian</th>
+				<th>MSSV</th>				
+				<th>Ngành học</th>
+				<th>Phòng đọc</th>
+			</tr>
+		</table>
+	</div>
 </div>
 <script src="js/moment.js"></script>

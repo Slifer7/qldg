@@ -2,7 +2,7 @@
 function btnCheckStudentID_Click() {
 	var studentID = $("#txtStudentID").val();
 	
-	if("CBN".indexOf(studentID) >= 0){ // Mã đặc biệt
+	if(studentID.length == 1 && "CBN".indexOf(studentID) >= 0){ // Mã đặc biệt
 		var info = "Mã sinh viên đặc biệt, có thể thêm lượt truy cập không cần đăng kí.<br/><br/>";
 		$("#txtInfo").html(info).attr("class", "Info");
 		return;
@@ -64,6 +64,9 @@ function CheckValidStudentInfo(){
 	else if (id.length < 7) {
 		info += "Độ dài MSSV không hợp lệ. <br/><br/>";
 	}
+	else if (id.length > 8){
+		info += "Độ dài MSSV không hợp lệ. <br/><br/>";
+	}
 	
 	return info;
 }
@@ -105,6 +108,7 @@ function insertVisit(id){
 			"type": "GET",
 			"data":  "StudentID=" + id,
 			"success": function(data){
+				console.log(data);
 				var visitInfo = JSON.parse(data);				
 				var txtInfo = $("#txtInfo");
 				var info = "";

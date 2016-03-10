@@ -15,7 +15,16 @@ function btnShowStatistics_Click(){
 			},
 			"success" : function(data){								
 				var a = JSON.parse(data);
-				console.log(a.length);
+				
+				var tblVisits = document.getElementById("tblVisits");
+				
+				a.forEach(function(item){
+					var row = tblVisits.insertRow(-1); // Chèn vào hàng cuối cùng
+					row.insertCell(0).innerHTML = item.timestamp;
+					row.insertCell(1).innerHTML = item.id;
+					row.insertCell(2).innerHTML = item.major;
+					row.insertCell(3).innerHTML = item.room;
+				});
 			}
 		});
 	}
@@ -29,7 +38,7 @@ function checkValidDates(){
 	var error = checkValidDateFormat(txtFromDate.val());	
 	
 	if (error.length != 0){
-		txtInfo.text(error);
+		txtInfo.html(error);
 		txtFromDate.focus();
 		return false;
 	} //--------------------------
@@ -39,7 +48,7 @@ function checkValidDates(){
 	error = checkValidDateFormat(txtToDate.val());
 	
 	if (error.length != 0){
-		txtInfo.text(error);
+		txtInfo.html(error);
 		txtToDate.focus();
 		return false;
 	} //--------------------------
@@ -54,6 +63,8 @@ function checkValidDates(){
 		return false;
 	} //--------------------------
 	
+	$("#txtInfo").html("");
+	
 	return true;
 }
 
@@ -65,7 +76,7 @@ function checkValidDateFormat(day){
 	var error = "";
 	
 	if(false == moment(day, "DD/MM/YYYY", STRICT).isValid()){
-		error += INVALID_DATEFORMAT + "<br/>" + INSTRUCTION; + "<br/><br/>";
+		error += INVALID_DATEFORMAT + "<br/>" + INSTRUCTION; + "<br/><br/><br/>";
 	}
 		
 	return error;
