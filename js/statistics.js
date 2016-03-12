@@ -125,7 +125,7 @@ function btnExport2Excel_Click(){
 				$("#tblVisits").html("");
 				
 				// Hiển thị kết quả trước khi report
-				$("#txtStatResult").html("Tải kết quả thống kê của các lượt truy cập <br/> Từ ngày: {0} đến ngày: {1}<br/> Phòng đọc: {2}, Ngành học: {3} trong link bên dưới:<br/><br/>".format(
+				$("#txtStatResult").html("Tải kết quả thống kê của các lượt truy cập <br/> Từ ngày: {0} đến ngày: {1}<br/> Phòng đọc: {2}, ngành học: {3} trong link bên dưới:<br/><br/>".format(
 					fromDate.format("DD/MM/YYYY"), toDate.format("DD/MM/YYYY"),
 					room == "all" ? "Tất cả" :room, major == "all" ? "Tất cả" : major));
 				

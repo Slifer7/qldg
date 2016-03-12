@@ -15,16 +15,25 @@ class RegistrationInfo {
 		$this->RegisterDate = $date;
 	}
 
-	public static function GetAllRegistration(){
-		$regs = array();
+	public static function GetAllRegistration($page){
+		$regs = new stdClass();		
 		
 		$connection = db::Connect();
 		$connection->query("set names 'utf8'");
 		
-		$sql = "select * from Registration";		
+		// Xác định có tổng cộng bao nhiêu trang
+		$sql = "select count(*) from Registration";		
+		$total = $connection->query($sql)->fetch_array()[0];
+		
+		$recordsPerPage = 15;	
+		$regs->PageCount = $total / $recordsPerPage;
+		$offset = ($page - 1) * $recordsPerPage;
+		
+		$sql = "select * from Registration limit $offset, $recordsPerPage";		
 		$result = $connection->query($sql);
 		
 		if ($result->num_rows > 0){
+			$regs->Data = array();
 			while($row = $result->fetch_assoc()){
 				$id = $row["studentid"];
 				$name = $row["fullname"];
@@ -32,7 +41,7 @@ class RegistrationInfo {
 				$date = $row["registerdate"];
 				
 				$item = new RegistrationInfo($id, $name, $major, $date);
-				array_push($regs, $item);
+				array_push($regs->Data, $item);
 			}				
 		}
 		

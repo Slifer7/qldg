@@ -25,9 +25,15 @@ require_once("RegistrationInfo.php");
 		</tr>
 		<?php
 			// TODO: paging
-			$regs = RegistrationInfo::GetAllRegistration();
+			$page = 1;
 			
-			foreach($regs as $reg) {
+			if (isset($_GET["page"])){
+				$page = $_GET["page"];
+			}				
+			
+			$regs = RegistrationInfo::GetAllRegistration($page);
+			
+			foreach($regs->Data as $reg) {
 				echo "<tr>";
 				echo "<td style='text-align: center;'>$reg->StudentID</td>";
 				echo "<td >$reg->FullName</td>";
@@ -36,5 +42,12 @@ require_once("RegistrationInfo.php");
 				echo "<tr>";
 			}
 		?>
+		<tr>
+			<td colspan="4" class="TextRight"><?php // Sinh ra bộ duyệt trang
+				for($i = 1; $i <= $regs->PageCount; $i++){
+					echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
+				}
+			?></td>
+		</tr>
 	</table>
 </div>
