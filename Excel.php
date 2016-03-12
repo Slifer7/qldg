@@ -3,6 +3,7 @@
 require_once ("Classes/PHPExcel.php");
 
 class Excel{
+	private $_filename;
 	private $_type;
 	private $_spreadsheet;
 	
@@ -11,20 +12,17 @@ class Excel{
 	public $Rows;
 	
 	public function __construct($filename){		
-		if (strlen($filename) != 0){
-			self::Load($filename);
-		}
+		$this->_filename = $filename;
 	}	
 	
-	public function Load($filename){
-		$this->_type = PHPExcel_IOFactory::identify($filename);
+	public function Load(){
+		$this->_type = PHPExcel_IOFactory::identify($this->_filename);
 		$reader = PHPExcel_IOFactory::createReader($this->_type);
-		$this->_spreadsheet = $reader->load($filename);
+		$this->_spreadsheet = $reader->load($this->_filename);
 		
 		$this->ActiveSheet = $this->_spreadsheet->getSheet(0);
 		$this->Rows = $this->ActiveSheet->getHighestRow();
 		$this->Cols = PHPExcel_Cell::columnIndexFromString($this->ActiveSheet->getHighestColumn());
-	}
+	}	
 }
-
 ?>

@@ -147,7 +147,7 @@ ul#menu li a:hover, ul#menu li.selected a, ul#menu li.selected a:hover
 
 #footer
 { width: 876px;
-  font: normal 100% 'lucida sans unicode', arial, sans-serif;
+  font: normal 100% 'roboto', arial, sans-serif;
   height: 33px;
   padding: 24px 0 5px 0;
   text-align: center; 
@@ -181,4 +181,5 @@ table tr th, table tr td
 table tr td
 { background: #F0EFE2;
   color: #47433F;
-  border-top: 1px solid #FFF;}
+  border-top: 1px solid #FFF;
+  font: normal 100% 'roboto', arial, sans-serif;}

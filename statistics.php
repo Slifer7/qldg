@@ -4,7 +4,7 @@ require_once("db.php");
 <div>
 	<h1>Thống kê lượt truy cập</h1>
 	<br/>
-	<span id="txtInfo" class="Error"></span>
+	<div id="txtInfo" class="Error"></div>
 	<form method="get" action="showStatistics.php">
 		<table>
 			<tr><?php
@@ -36,8 +36,10 @@ require_once("db.php");
 				</td>
 			</tr>
 			<tr>
-				<td colspan="4" class="Center">
-					<input type="button" value="Thống kê" onclick="btnShowStatistics_Click()" /> 
+				<td colspan="2" class="Center">
+					<input type="button" value="Thống kê" onclick="btnShowStatistics_Click()" /> 					
+				</td>
+				<td colspan="2" class="Center">
 					<input type="button" value="Xuất excel" onclick="btnExport2Excel_Click()"/>
 				</td>
 			</tr>			
@@ -47,15 +49,11 @@ require_once("db.php");
 	<br/>
 	<div id="divResult">
 		<h3>Kết quả thống kê</h3>
-		<br/>
-		<table id="tblVisits">
-			<tr>
-				<th>Thời gian</th>
-				<th>MSSV</th>				
-				<th>Ngành học</th>
-				<th>Phòng đọc</th>
-			</tr>
+		<span id="txtStatResult"></span>
+		<a id="linkDownload"></a>
+		<table id="tblVisits">			
 		</table>
 	</div>
 </div>
 <script src="js/moment.js"></script>
+<script src="js/helper.js"></script>

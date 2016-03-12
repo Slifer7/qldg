@@ -9,8 +9,5 @@ if(isset($_GET["FromDate"], $_GET["ToDate"], $_GET["Room"], $_GET["Major"])){
 	
 	$result = VisitInfo::GetVisits($from, $to, $room, $major);
 	echo json_encode($result);
-}
-else {
-	header("Location: index.php");
-}  
+} 
 ?>

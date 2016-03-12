@@ -1,8 +1,8 @@
 <?php
 require_once("db.php");
+require_once("Helper.php");
 
-class VisitInfo
-{
+class VisitInfo{
 	public $VisitID;
 	public $StudentID;
 	public $Major;
@@ -70,7 +70,43 @@ class VisitInfo
 		return $result;
 	}
 	
-	
+	public static function Export2Excel($data, $from, $to, $room, $major){ //: filepath
+		// Xóa sạch các file cũ
+		Helper::DeleteAllFiles("download/*");
+		
+		// Tạo tên file duy nhất dựa trên ngày giờ
+		$filename = sprintf("download/export_%s_%s_%s.xlsx",
+						str_replace("-", "", $from),
+						str_replace("-", "", $to),
+						date("his")); // "Giờ phút giây"
+		// Tạo bản sao từ template
+		copy("template/visit.xlsx", $filename); 
+						
+		$filetype = "Excel2007";
+		$reader = PHPExcel_IOFactory::createReader($filetype);
+		$excel = $reader->load($filename);
+		$sheet = $excel->setActiveSheetIndex(0);
+		$sheet->setCellValue("C4", str_replace("-", "/", $from));
+		$sheet->setCellValue("E4", str_replace("-", "/", $to));
+		$sheet->setCellValue("C5", $room == "all" ? "Tất cả" : $room);		 
+		$sheet->setCellValue("E5", $major == "all" ? "Tất cả" : $room);
+		
+		$count = count($data);
+		$sheet->setCellValue("C6", $count);
+		
+		// Đổ dữ liệu vào bảng		
+		for($i = 0; $i < $count; $i++){
+			$sheet->setCellValue("B" . (9 + $i) , $i + 1); // Số thứ tự	
+			$sheet->setCellValue("C" . (9 + $i) , $data[$i]->timestamp);	
+			$sheet->setCellValue("D" . (9 + $i) , $data[$i]->room);	
+			$sheet->setCellValue("E" . (9 + $i) , $data[$i]->major);	
+			$sheet->setCellValue("F" . (9 + $i) , $data[$i]->id);	
+		}	
+			
+		$writer = PHPExcel_IOFactory::createWriter($excel, $filetype);
+		$writer->save($filename);
+		
+		return $filename;
+	}	
 }
-
 ?>

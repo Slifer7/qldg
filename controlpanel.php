@@ -17,6 +17,7 @@ else {// Haven't login yet
 	<link rel="stylesheet" href="css/admin.css"/>	
 	<link rel="stylesheet" href="css/visitman.css"/>
 	<link rel="stylesheet" href="css/common.css" />
+	<link rel="stylesheet" href="css/statistics.css" />
 </head>
 <body>
   <div id="main">

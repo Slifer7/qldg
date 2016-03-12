@@ -1,10 +1,9 @@
 <?php
 require_once("MajorInfo.php");
+require_once("Helper.php");
 session_start();
 
 try {
-	// Undefined | Multiple Files | $_FILES Corruption Attack
-	// If this request falls under any of them, treat it invalid.
 	$txtFile = "upfile";
 	if (
 		!isset($_FILES[$txtFile]['error']) ||
@@ -12,8 +11,7 @@ try {
 	) {
 		throw new RuntimeException('Invalid parameters.');
 	}
-
-	// Check $_FILES['upfile']['error'] value.
+	
 	switch ($_FILES[$txtFile]['error']) {
 		case UPLOAD_ERR_OK:
 			break;
@@ -31,8 +29,8 @@ try {
 	//	throw new RuntimeException('Exceeded filesize limit.');
 	//}
 
-	// Obtain safe unique name from its binary data.
-	$uniqueName = sprintf('uploads/%s',
+	// Tạo ra tên duy nhất
+	$uniqueName = sprintf('upload/%s',
 						  sha1_file($_FILES[$txtFile]['tmp_name'])
 						 );
 	
@@ -42,9 +40,14 @@ try {
 		throw new RuntimeException('Failed to move uploaded file.');
 	}
 	
-	// Free to process uploaded file
+	// Xử lí file được upload lên ở đây
 	$result = MajorInfo::Import($uniqueName);
 	$_SESSION["MAJOR_IMPORT_RESULT"] = $result;
+	
+	//Xóa các file đã upload trong thư mục upload
+	Helper::DeleteAllFiles("upload/*");
+	
+	// Chuyển đến trang hiển thị kết quả
 	header("Location: admincp.php?action=showMajorImportResult");	
 } catch (RuntimeException $e) {
 	echo $e->getMessage();
