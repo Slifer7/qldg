@@ -24,7 +24,6 @@ require_once("RegistrationInfo.php");
 			<th>Thời điểm đăng kí</th>
 		</tr>
 		<?php
-			// TODO: paging
 			$page = 1;
 			
 			if (isset($_GET["page"])){
@@ -34,20 +33,29 @@ require_once("RegistrationInfo.php");
 			$regs = RegistrationInfo::GetAllRegistration($page);
 			
 			foreach($regs->Data as $reg) {
-				echo "<tr>";
+				echo "<tr id='$reg->StudentID'>";
 				echo "<td style='text-align: center;'>$reg->StudentID</td>";
 				echo "<td >$reg->FullName</td>";
 				echo "<td >$reg->MajorName</td>";
-				echo "<td >$reg->RegisterDate</td>";
+				echo "<td style='width: 150px'>$reg->RegisterDate</td>";
+				echo "<td style='width: 60px; text-align: center;'><a href='beginedit' onclick='return beginEdit($reg->StudentID)'>Edit</a></td>";
 				echo "<tr>";
 			}
 		?>
 		<tr>
-			<td colspan="4" class="TextRight"><?php // Sinh ra bộ duyệt trang
-				for($i = 1; $i <= $regs->PageCount; $i++){
-					echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
+			<td colspan="5" class="TextRight"><?php // Sinh ra bộ duyệt trang
+				for($i = 1; $i <= $regs->PageCount; $i++){					
+					if ($page == $i)
+						echo "<a><b>$i</b></a> &nbsp;";	
+					else
+						echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
 				}
 			?></td>
 		</tr>
 	</table>
 </div>
+<script src="js/helper.js"></script>
+<script src="js/registration.js"></script>
+<script>
+	var g_Editing = false;
+</script> 
