@@ -56,6 +56,3 @@ require_once("RegistrationInfo.php");
 </div>
 <script src="js/helper.js"></script>
 <script src="js/registration.js"></script>
-<script>
-	var g_Editing = false;
-</script> 
