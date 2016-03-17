@@ -46,3 +46,4 @@
 	?>
 	</table>
 </div>
+<script type="text/javascript" src="js/helper.js"></script>

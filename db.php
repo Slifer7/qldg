@@ -55,7 +55,7 @@ class DB
 		
 		// Trường hợp đặc biệt không cần kiểm tra có đăng kí hay chưa
 		if(strpos("CBN", $studentID) !== false){ // Có tồn tại 1 trong số các kí tự đb
-			$result->FullName = self::_getMajorName($studentID);
+			$result->FullName = self::_getMajorName($studentID); // Trường hợp mã đặc biệt thì tên cũng là tên ngành
 			$connection = self::Connect();		
 			$sql = "insert into Visit(studentid, major, timestamp, room) values('$studentID', '$result->Major', now(), '$room')";
 			$reader = $connection->query($sql);
@@ -63,7 +63,7 @@ class DB
 			if ($reader == TRUE) {
 				$result->VisitID = $connection->insert_id;
 				
-				// Vấn đề với ngày giờ từ php, nên phải lấy ngày giờ từ mysql cho lẹ
+				// Vấn đề với ngày giờ từ php - time zone, nên phải lấy ngày giờ từ mysql cho lẹ
 				$sql = "select now()";
 				$result->Date = $connection->query($sql)->fetch_array()[0];
 			}		 
@@ -75,6 +75,7 @@ class DB
 			return $result;
 		}
 		else{
+			$result->FullName = $reginfo->FullName; // Lấy tên từ thông tin đăng kí, phục vụ việc trả về thôi
 			$connection = self::Connect();		
 			$sql = "insert into Visit(studentid, major, timestamp, room) values('$studentID', '$result->Major', now(), '$room')";
 			$reader = $connection->query($sql);

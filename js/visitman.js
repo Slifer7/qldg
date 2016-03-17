@@ -108,14 +108,12 @@ function insertVisit(id){
 			"type": "GET",
 			"data":  "StudentID=" + id,
 			"success": function(data){
-				console.log(data);
 				var visitInfo = JSON.parse(data);				
-				var txtInfo = $("#txtInfo");
 				var info = "";
 				
 				if (visitInfo.VisitID == -1) {
 					info = "Có lỗi khi thêm lượt truy cập của sinh viên. Có thể sinh viên chưa đăng kí.<br/><br/>";	
-					txtInfo.attr("class", "Error");
+					$("#txtInfo").attr("class", "Error");
 				}
 				else {										
 					// Chèn sinh viên mới vào đầu bảng
@@ -126,15 +124,17 @@ function insertVisit(id){
 					row.insertCell(2).innerHTML = visitInfo.Major;
 					row.insertCell(3).innerHTML = visitInfo.Date;
 					
-					info = "Đã thêm thành công lượt truy cập của sinh viên: " + visitInfo.StudentID + " - " + visitInfo.FullName + "<br/><br/>";					
-					txtInfo.attr("class", "Info");
+					info = "Đã thêm thành công lượt truy cập của sinh viên: {0} - {1} <br/><br/>" 
+								.format(visitInfo.StudentID, visitInfo.FullName);					
+					$("#txtInfo").attr("class", "Info");
 					
-					// Reset form cho lần nhập thông tin kế					
+					// Reset form cho lần nhập thông tin kế
+					gInsertedSuccess = true;		
 					$("#txtStudentID").val("").focus();					
 					$("#txtFullName").val("");
 				}
 				
-				txtInfo.html(info);
+				$("#txtInfo").html(info);
 			}
 		});
 	}
@@ -156,7 +156,7 @@ function txtStudentID_Pasted(){
 
 // Xảy ra trước khi hiện kí tự
 function txtStudentID_KeyPress(){	
-	// Reset các control phụ thuộc
+	// Hot fix vụ insert thành công reset txtStudentID về rỗng nhưng lại gây ra sự kiện keypress???
 	$("#txtInfo").html("");	
 	$("#txtFullName").val("");
 	
@@ -181,7 +181,6 @@ function txtStudentID_KeyPress(){
 				$("#txtStudentID").val(""); // Xóa trống nhường chỗ cho số
 			}
 		}
-		
 		return true;
 	}
 	
@@ -191,6 +190,8 @@ function txtStudentID_KeyPress(){
 
 // Xảy ra sau khi hiện kí tự
 function txtStudentID_KeyUp(){
+	// No backspace needed so no need for keyup!
+	/* console.log("Reason?");
 	var BACKSPACE = 8;
 	var DELETE = 46;
 	var val = $("#txtStudentID").val();
@@ -198,5 +199,5 @@ function txtStudentID_KeyUp(){
 	if (val.length == 0){
 		$("#txtInfo").html("");	
 		$("#txtFullName").val("");
-	}		
+	}		 */
 }
