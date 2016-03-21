@@ -51,7 +51,11 @@ else {// Haven't login yet
       <div class="sidebar">
         <h2>Bảng điểu khiển</h2>
         <img src="img/user.png" style="padding-left: 2px; padding-right: 2px;" /> <a id="txtUsername" href="profile.php"><b><?php echo $_SESSION["LOGIN_INFO"]->Username; ?></b></a><br/>
-        <img src="img/logout.png"style="position: relative; padding-top: 5px; top: 3px;"/> <a id="txtAction" href="doLogout.php" >Thoát</a>
+        <img src="img/logout.png" style="position: relative; padding-top: 5px; top: 3px;"/> <a id="txtAction" href="doLogout.php" >Thoát</a>
+		<br/>
+		<br/>
+		<img src="img/summary.png" style="position: relative; padding-top: 5px; top: 3px;"/> <a href="Summary" onclick="return generateSummaryReport_Click();">Tạo báo cáo tổng kết</a>
+		
       </div>
       <div id="content"><?php 
 			if (isset($_REQUEST["action"])){

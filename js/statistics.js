@@ -135,3 +135,26 @@ function btnExport2Excel_Click(){
 	}
 }
 
+
+function generateSummaryReport_Click(){
+	// TODO: Kiểm tra from date và todate
+	
+	var fromDate = moment($("#txtFromDate").val(), "DD/MM/YYYY", true);
+	var toDate = moment($("#txtToDate").val(), "DD/MM/YYYY", true);
+	$.ajax({"url": "getSummaryReport.php",
+			"type" : "GET",
+			"data" : {
+				"FromDate" : fromDate.format("YYYY-MM-DD"),
+				"ToDate"   : toDate.format("YYYY-MM-DD"),
+			},
+			"success" : function(link){	
+				// Reset một số thứ
+				$("#tblVisits").html("");
+				
+				$("#linkDownload").html("Download link").attr("href", link);
+			}
+		});
+	
+	return false; // Sự kiện sinh ra từ thẻ a nên cần return false để cản
+}
+

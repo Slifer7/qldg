@@ -108,5 +108,9 @@ class VisitInfo{
 		
 		return $filename;
 	}	
+	
+	public static function GenerateSummaryReport(){
+		
+	}
 }
 ?>
