@@ -32,7 +32,7 @@ try {
 	//}
 
 	// Obtain safe unique name from its binary data.
-	$uniqueName = sprintf('uploads/%s',
+	$uniqueName = sprintf('upload/%s',
 						  sha1_file($_FILES[$txtFile]['tmp_name'])
 						 );
 	

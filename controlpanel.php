@@ -54,8 +54,13 @@ else {// Haven't login yet
         <img src="img/logout.png" style="position: relative; padding-top: 5px; top: 3px;"/> <a id="txtAction" href="doLogout.php" >Thoát</a>
 		<br/>
 		<br/>
-		<img src="img/summary.png" style="position: relative; padding-top: 5px; top: 3px;"/> <a href="Summary" onclick="return generateSummaryReport_Click();">Tạo báo cáo tổng kết</a>
-		
+		<?php
+		if (0 == strcmp( "admin", 
+						   strtolower($result->Room)
+						   )){ // Admin thì không xử lí lượt truy cập
+		echo "<img src='img/summary.png' style='position: relative; padding-top: 5px; top: 3px;'/> <a href='Summary' onclick='return generateSummaryReport_Click();'>Tạo báo cáo tổng kết</a>";
+		}
+		?>	
       </div>
       <div id="content"><?php 
 			if (isset($_REQUEST["action"])){
