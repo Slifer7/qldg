@@ -45,7 +45,7 @@ try {
 	// Free to process uploaded file
 	$result = RegistrationInfo::Import($uniqueName);
 	$_SESSION["REGISTRATION_IMPORT_RESULT"] = $result;
-	header("Location: admincp.php?action=showRegistrationImportResult");	
+	header("Location: controlpanel.php?action=showRegistrationImportResult");	
 } catch (RuntimeException $e) {
 	echo $e->getMessage();
 }

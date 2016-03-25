@@ -63,6 +63,7 @@ class RegistrationInfo {
 		$statement = $connection->prepare($sql);
 		
 		$excel = new Excel($filename);
+		$excel->Load();
 		$importResult->TotalRecords = $excel->Rows - 1; // Không tính dòng tiêu đề
 		
 		// Rows: 1 -> n trong khi đó Cols: 0 -> n-1		

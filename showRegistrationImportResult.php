@@ -11,13 +11,13 @@ if(isset($_SESSION["REGISTRATION_IMPORT_RESULT"])){
 	
 	if ($result->FailureCount > 0){
 		echo "Số lượng sinh viên import thất bại: " . $result->FailureCount . "<br/>";
-		echo "Danh sách các sinh viên đã có sẵn nên không import: ";
-		
+		echo "Danh sách các sinh viên đã có sẵn nên không import:<br/>";
+		echo "<ol>";
 		$count = count($result->DuplicateIDs);
-		for($i = 0; $i < $count - 1; $i++){
-			echo $result->DuplicateIDs[$i] . ", ";
+		for($i = 0; $i < $count; $i++){
+			echo "<li>" . $result->DuplicateIDs[$i] . "</li>";
 		}
-		echo $result->DuplicateIDs[$count - 1];
+		echo "</ol>";
 	}
 }
 else{
