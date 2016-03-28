@@ -7,12 +7,14 @@ if(isset($_GET["FromDate"], $_GET["ToDate"]) ){
 	
 	// Lấy dữ liệu thống kê của phòng linhtrung
 	$room = "linhtrung";
-	$major = "all";
-	$result = VisitInfo::GetVisits$from, $to, $room, $major);
-
+	$result = VisitInfo::GetVisitsByRoom($from, $to, $room);
 	
+	/* $room = "thamkhao";
+	$result = VisitInfo::GetVisitsByRoom($from, $to, $room);
 	
+	$room = "luuhanh";
+	$result = VisitInfo::GetVisitsByRoom($from, $to, $room);	 */
 	
-	echo $filename;
+	echo json_encode($result);
 }
 ?>

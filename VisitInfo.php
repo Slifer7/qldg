@@ -70,6 +70,31 @@ class VisitInfo{
 		return $result;
 	}
 	
+	public static function GetVisitsByRoom($from, $to, $room){
+		$connection = db::Connect();	
+		
+		$sql = "select majorname, count(major) as total " .
+				"from major as m left join " .
+					"(select major, room, timestamp from visit where room='$room' and " .
+					"cast(timestamp as date) between cast('$from' as date) and cast('$to' as date)) as v " .			         
+				"on m.majorname = v.major " .
+			    "group by m.majorname, v.major";		
+				
+		$reader = $connection->query($sql);
+		$result = array();
+		
+		if($reader->num_rows > 0 ){						
+			while($row = $reader->fetch_assoc()){
+				$item = new stdClass();				
+				$item->major = $row["majorname"];
+				$item->total = $row["total"];
+				array_push($result, $item);				
+			}
+		}
+		$connection->close();
+		return $result;
+	}
+	
 	public static function Export2Excel($data, $from, $to, $room, $major){ //: filepath
 		// Xóa sạch các file cũ
 		Helper::DeleteAllFiles("download/*");
