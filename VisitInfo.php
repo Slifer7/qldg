@@ -95,7 +95,34 @@ class VisitInfo{
 		return $result;
 	}
 	
-	public static function Export2Excel($data, $from, $to, $room, $major){ //: filepath
+	// Lấy tổng số lượt truy cập không phân ra phòng đọc
+	public static function GetTotalVisits($from, $to){
+		$connection = db::Connect();	
+		
+		$sql = "select majorname, count(major) as total " .
+				"from major as m left join " .
+					"(select major, timestamp from visit " .
+					"where cast(timestamp as date) ". 
+					"between cast('$from' as date) and cast('$to' as date)) as v ".			         
+				"on m.majorname = v.major " .
+			    "group by m.majorname, v.major";		
+				
+		$reader = $connection->query($sql);
+		$result = array();
+		
+		if($reader->num_rows > 0 ){						
+			while($row = $reader->fetch_assoc()){
+				$item = new stdClass();				
+				$item->major = $row["majorname"];
+				$item->total = $row["total"];
+				array_push($result, $item);				
+			}
+		}
+		$connection->close();
+		return $result;
+	}
+		
+	public static function Export2Excel($data, $from, $to, $room, $major){ //: filename
 		// Xóa sạch các file cũ
 		Helper::DeleteAllFiles("download/*");
 		
@@ -134,8 +161,57 @@ class VisitInfo{
 		return $filename;
 	}	
 	
-	public static function GenerateSummaryReport(){
+	// Tạo ra báo cáo tổng kết
+	public static function GenerateSummaryReport($from, $to){
+		// Xóa sạch các file cũ
+		Helper::DeleteAllFiles("download/*");
 		
+		// Tạo tên file duy nhất dựa trên ngày giờ
+		$filename = sprintf("download/TongKet_%s_%s_%s.xlsx",
+						str_replace("-", "", $from),
+						str_replace("-", "", $to),
+						date("his")); // "Giờ phút giây"
+		// Tạo bản sao từ template
+		copy("template/summary.xlsx", $filename); 
+						
+		$filetype = "Excel2007";
+		$reader = PHPExcel_IOFactory::createReader($filetype);
+		$excel = $reader->load($filename);
+		
+		// Tổng hợp
+		$data = self::GetTotalVisits($from, $to);		
+		self::_flushSummaryData($excel, $data, 0);
+			
+		$rooms = array('', 'luuhanh', 'thamkhao', 'linhtrung');
+		
+		for($i = 1; $i <= 3; $i++)
+		{
+			$data = self::GetVisitsByRoom($from, $to, $rooms[$i]);		
+			self::_flushSummaryData($excel, $data, $i);	
+		}
+			
+		$writer = PHPExcel_IOFactory::createWriter($excel, $filetype);
+		$writer->save($filename);
+		
+		return $filename;
+	}	
+	
+	// Đổ dữ liệu vào bảng
+	private static function _flushSummaryData($excel, $data, $index)
+	{
+		$sheet = $excel->setActiveSheetIndex($index);
+		$count = count($data);		
+		$total = 0;
+		
+		for($i = 0; $i < $count; $i++){
+			$sheet->setCellValue("C" . (8 + $i) , $i + 1); // Số thứ tự	
+			$sheet->setCellValue("D" . (8 + $i) , $data[$i]->major); // Tên chuyên ngành	 
+			$sheet->setCellValue("E" . (8 + $i) , $data[$i]->total); // Số lượt truy cập	
+			$total += $data[$i]->total;	
+		}
+		
+		$sheet->setCellValue("D" . (8 + $count + 1), "Tổng cộng");
+		$sheet->setCellValue("E" . (8 + $count + 1), $total);		
 	}
 }
 ?>
