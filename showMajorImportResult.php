@@ -21,7 +21,7 @@ if(isset($_SESSION["MAJOR_IMPORT_RESULT"])){
 	}
 }
 else{
-	header("Location: admincp.php");
+	header("Location: controlpanel.php");
 }
 
 ?>

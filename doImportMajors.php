@@ -48,7 +48,7 @@ try {
 	Helper::DeleteAllFiles("upload/*");
 	
 	// Chuyển đến trang hiển thị kết quả
-	header("Location: admincp.php?action=showMajorImportResult");	
+	header("Location: controlpanel.php?action=showMajorImportResult");	
 } catch (RuntimeException $e) {
 	echo $e->getMessage();
 }
