@@ -148,8 +148,6 @@ function generateSummaryReport_Click(){
 				"ToDate"   : toDate.format("YYYY-MM-DD"),
 			},
 			"success" : function(link){	
-				console.log(link);			
-			
 				// Reset một số thứ
 				$("#tblVisits").html("");
 				$("#txtStatResult").html("");

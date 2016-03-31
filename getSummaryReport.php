@@ -6,6 +6,6 @@ if(isset($_GET["FromDate"], $_GET["ToDate"]) ){
 	$to = $_GET["ToDate"];	
 	$link = VisitInfo::GenerateSummaryReport($from, $to);
 	
-	echo json_encode($link);
+	echo $link;
 }
 ?>
