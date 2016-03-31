@@ -30,7 +30,8 @@ require_once("RegistrationInfo.php");
 				$page = $_GET["page"];
 			}				
 			
-			$regs = RegistrationInfo::GetAllRegistration($page);
+			$recordsPerPage = 5;
+			$regs = RegistrationInfo::GetAllRegistration($page, $recordsPerPage);
 			
 			foreach($regs->Data as $reg) {
 				echo "<tr id='$reg->StudentID'>";
@@ -44,12 +45,40 @@ require_once("RegistrationInfo.php");
 		?>
 		<tr>
 			<td colspan="5" class="TextRight"><?php // Sinh ra bộ duyệt trang
-				for($i = 1; $i <= $regs->PageCount; $i++){					
-					if ($page == $i)
-						echo "<a><b>$i</b></a> &nbsp;";	
-					else
+				if ($page < 7){
+					for ($i = 1; $i < $page; $i++)
 						echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
 				}
+				else{					
+					echo "<a href='controlpanel.php?action=registration&page=1'>1</a> &nbsp;";
+					echo "<a href='controlpanel.php?action=registration&page=2'>2</a> &nbsp;";
+					echo "<a href='controlpanel.php?action=registration&page=1'>3</a> &nbsp;";
+					echo " ... ";
+					$i = $page - 2;
+					echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
+					$i = $page - 1;
+					echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
+				}
+			
+				echo "<a><b>$page</b></a> &nbsp;";	
+				
+				if($regs->PageCount - $page < 6){
+					for ($i = $page + 1; $i <= $regs->PageCount; $i++)
+						echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
+				}
+				else{
+					$i = $page + 1;
+					echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
+					$i = $page + 2;
+					echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
+					echo " ... ";
+					
+					$i = $regs->PageCount - 1;
+					echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
+					$i = $regs->PageCount;
+					echo "<a href='controlpanel.php?action=registration&page=$i'>$i</a> &nbsp;";
+				}
+					
 			?></td>
 		</tr>
 	</table>

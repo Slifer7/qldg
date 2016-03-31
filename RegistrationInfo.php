@@ -15,7 +15,7 @@ class RegistrationInfo {
 		$this->RegisterDate = $date;
 	}
 
-	public static function GetAllRegistration($page){
+	public static function GetAllRegistration($page, $recordsPerPage){
 		$regs = new stdClass();		
 		
 		$connection = db::Connect();
@@ -24,9 +24,8 @@ class RegistrationInfo {
 		// Xác định có tổng cộng bao nhiêu trang
 		$sql = "select count(*) from Registration";		
 		$total = $connection->query($sql)->fetch_array()[0];
-		
-		$recordsPerPage = 15;	
-		$regs->PageCount = $total / $recordsPerPage;
+	
+		$regs->PageCount = ceil($total / $recordsPerPage);
 		$offset = ($page - 1) * $recordsPerPage;
 		
 		$sql = "select * from Registration limit $offset, $recordsPerPage";		
