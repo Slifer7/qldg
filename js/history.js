@@ -12,7 +12,9 @@ function updateHistory(){
   			"list" : list
   		},
   		"success" : function(data){
-  				console.log(data);
+  				info.html("Kết quả cập nhật: " + data);
+          $("#txtDate").val("");
+          $("#txtStudents").val("");
   		}
   	});
   }

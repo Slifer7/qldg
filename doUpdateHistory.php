@@ -20,6 +20,10 @@ if(isset($_POST["date"],
       $count++;
   }
 
-  echo $count . "/" . count($list);
+  echo "Đã thêm " . $count . " lượt truy cập!";
+  if ($count != count($list)){
+    echo "Số lượt truy cập không thành công: ";
+    echo count($list) - $count;
+  }
 }
 ?>
