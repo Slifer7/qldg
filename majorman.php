@@ -24,7 +24,7 @@ require_once("db.php");
 		$majors = db::GetAllMajors();
 
 		foreach($majors as $major){
-			echo "<tr>";
+			echo "<tr id='$major->Code'>";
 				echo "<td style='text-align: center;'>$major->Code</td>";
 				echo "<td>$major->MajorName</td>";
 				echo "<td style='width: 60px; text-align: center;'><a href='beginedit' onclick='return beginEditMajor($major->Code);'>Edit</a></td>";
@@ -33,3 +33,5 @@ require_once("db.php");
 	?>
 	</table>
 </div>
+<script src="js/helper.js"></script>
+<script src="js/majorman.js"></script>

@@ -8,13 +8,13 @@ if (isset($_SESSION["LOGGED_IN"])){
 else {// Haven't login yet
 	// Redirect to log in page
 	header("Location: login.php");
-}	
+}
 ?>
 <html>
 <head>
 	<title>Admin control panel</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<link rel="stylesheet" href="css/admin.css"/>	
+	<link rel="stylesheet" href="css/admin.css"/>
 	<link rel="stylesheet" href="css/visitman.css"/>
 	<link rel="stylesheet" href="css/common.css" />
 	<link rel="stylesheet" href="css/statistics.css" />
@@ -24,24 +24,24 @@ else {// Haven't login yet
     <div id="header">
 	  <div id="logo">
 		<img id="logo_img" src="img/logo.png"/>
-	  </div>	  
+	  </div>
       <div id="menubar">
-        <ul id="menu">		
-		  <?php	
-			if (0 != strcmp( "admin", 
+        <ul id="menu">
+		  <?php
+			if (0 != strcmp( "admin",
 						   strtolower($result->Room)
 						   )){ // Admin thì không xử lí lượt truy cập
-				echo "<li id='visitman'><a href='controlpanel.php?action=visitman'>Lượt truy cập</a></li>";          
+				echo "<li id='visitman'><a href='controlpanel.php?action=visitman'>Lượt truy cập</a></li>";
 				$choice = "visitman";
 			}
-		    if (0 == strcmp( "admin", 
+		    if (0 == strcmp( "admin",
 						   strtolower($result->Room)
 						  )){ // Chỉ có admin mới có quyền thực hiện thống kê và quản lí tài khoản
 				$choice = "statistics";
 				echo "<li id='registration'><a href='controlpanel.php?action=registration'>Đăng kí</a></li>";
 				echo "<li id='majorman'><a href='controlpanel.php?action=majorman'>Ngành học</a></li>";
 				echo "<li id='accounts'><a href='controlpanel.php?action=accounts'>Tài khoản</a></li>";
-				echo "<li id='statistics'><a href='controlpanel.php?action=statistics'>Thống kê</a></li>";			
+				echo "<li id='statistics'><a href='controlpanel.php?action=statistics'>Thống kê</a></li>";
 		    }
 		  ?>
         </ul>
@@ -55,29 +55,28 @@ else {// Haven't login yet
 		<br/>
 		<br/>
 		<?php
-		if (0 == strcmp( "admin", 
+		if (0 == strcmp( "admin",
 						   strtolower($result->Room)
 						   )){ // Admin thì không xử lí lượt truy cập
 		echo "<img src='img/summary.png' style='position: relative; padding-top: 5px; top: 3px;'/> <a href='Summary' onclick='return generateSummaryReport_Click();'>Tạo báo cáo tổng kết</a>";
 		}
-		?>	
+		?>
       </div>
-      <div id="content"><?php 
+      <div id="content"><?php
 			if (isset($_REQUEST["action"])){
 				$choice = $_REQUEST["action"];
 			}
-			include_once($choice . ".php"); 
+			include_once($choice . ".php");
 		?>
-      </div>	  	  
-    </div>  	
+      </div>
+    </div>
 	<div id="footer">
 		Thư viện Đại học Khoa học tự nhiên - 227 Nguyễn Văn Cừ P5 Q5 TP HCM
-	</div>	
+	</div>
   </div>
-  
+
   <script src="js/jquery-2.2.1.min.js"></script>
   <script src="js/visitman.js"></script>
-  <script src="js/majorman.js"></script>	
   <script src="js/statistics.js"></script>
   <script type="text/javascript">
 	document.getElementById("<?php echo $choice; ?>").className = "selected";

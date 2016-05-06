@@ -30,7 +30,7 @@ require_once("RegistrationInfo.php");
 				$page = $_GET["page"];
 			}
 
-			$recordsPerPage = 5;
+			$recordsPerPage = 250;
 			$regs = RegistrationInfo::GetAllRegistration($page, $recordsPerPage);
 
 			foreach($regs->Data as $reg) {
