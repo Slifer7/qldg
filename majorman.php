@@ -15,18 +15,19 @@ require_once("db.php");
 <br/>
 <div id="divAllMajorList">
 	<h3>Danh sách các ngành học</h3>
-	<table id="tblMajors" border="1">
+	<table id="tblMajors">
 		<tr>
 			<th>Mã ngành</th>
 			<th>Ngành</th>
 		</tr>
 	<?php
 		$majors = db::GetAllMajors();
-		
+
 		foreach($majors as $major){
 			echo "<tr>";
 				echo "<td style='text-align: center;'>$major->Code</td>";
 				echo "<td>$major->MajorName</td>";
+				echo "<td style='width: 60px; text-align: center;'><a href='beginedit' onclick='return beginEditMajor($major->Code);'>Edit</a></td>";
 			echo "</tr>";
 		}
 	?>

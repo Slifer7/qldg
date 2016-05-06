@@ -2,6 +2,7 @@ var gClipboard;
 var gIsEditing = false;
 var gID;
 var gFullName;
+var gOldID;
 
 function beginEdit(id){
 	if (gIsEditing == false){
@@ -12,6 +13,7 @@ function beginEdit(id){
 		var childs = tr.children("td");
 		gID = childs[0];
 		gFullName = childs[1];
+		gOldID = childs[0].innerText;
 
 		// Chỉ cho phép thay đổi MSSV và Họ tên thôi vì mấy cái còn lại loại suy ra được.
 		gID.innerHTML = "<input id='newID' style='width: 70px;' type='text' value='{0}'/>".format(childs[0].innerText);
@@ -36,11 +38,14 @@ function endEdit(id){
 	$.ajax({"url": "doUpdateStudentInfo.php",
 		"type" : "POST",
 		"data" : {
+			"oldID": gOldID,
 			"newID" : newID,
-			"newFullName"   : newFullName
+			"newFullName" : newFullName
 		},
 		"success" : function(data){
 				console.log(data);
+				gID.innerText = newID;
+				gFullName.innerText = newFullName;
 				alert("Đã cập nhật thành công cho sinh viên có mã số: " + newID);
 		}
 	});
