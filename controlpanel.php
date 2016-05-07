@@ -41,7 +41,6 @@ else {// Haven't login yet
 				$choice = "statistics";
 				echo "<li id='registration'><a href='controlpanel.php?action=registration'>Đăng kí</a></li>";
 				echo "<li id='majorman'><a href='controlpanel.php?action=majorman'>Ngành học</a></li>";
-				echo "<li id='accounts'><a href='controlpanel.php?action=accounts'>Tài khoản</a></li>";
 				echo "<li id='statistics'><a href='controlpanel.php?action=statistics'>Thống kê</a></li>";
   		}
 		  ?>
