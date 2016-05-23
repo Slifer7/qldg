@@ -3,6 +3,8 @@ var gIsEditing = false;
 var gID;
 var gFullName;
 var gOldID;
+var gEditLink;
+var gOldEditLink;
 
 function beginEdit(id){
 	if (gIsEditing == false){
@@ -18,6 +20,10 @@ function beginEdit(id){
 		// Chỉ cho phép thay đổi MSSV và Họ tên thôi vì mấy cái còn lại loại suy ra được.
 		gID.innerHTML = "<input id='newID' style='width: 70px;' type='text' value='{0}'/>".format(childs[0].innerText);
 		gFullName.innerHTML = "<input id='newFullName' style='width: 180px;' type='text' value='{0}'/>".format(childs[1].innerText);
+
+		// Lưu lại nút Edit cũ
+		gEditLink = childs[4];
+		gOldEditLink = childs[4].innerHTML;
 
 		// Đổi nút Edit thành hai nút khác, OK và Cancel
 		childs[4].innerHTML = "<a href='endEdit' onclick='return endEdit({0});'>OK</a> &nbsp;<a href='cancelEdit1' onclick='return cancelEdit({1});'>Hủy</a>".format(id, id);
@@ -47,6 +53,11 @@ function endEdit(id){
 				gID.innerText = newID;
 				gFullName.innerText = newFullName;
 				alert("Đã cập nhật thành công cho sinh viên có mã số: " + newID);
+
+				// Phục hồi nút Edit
+				gEditLink.innerHTML = gOldEditLink;
+
+				gIsEditing = false;
 		}
 	});
 
