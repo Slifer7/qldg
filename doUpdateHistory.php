@@ -14,10 +14,12 @@ if(isset($_POST["date"],
   $room = $result->Room;
 
   $count = 0;
-  foreach($list as $id){
-    $result = db::InsertVisit($date, $id, $room);
-    if ($result->VisitID != -1)
-      $count++;
+  foreach($list as $id){ //if($id != "") để không nhập những dòng trống
+	if($id != ""){
+		$result = db::InsertVisit($date, $id, $room);
+		if ($result->VisitID != -1)
+		  $count++;
+	}
   }
 
   echo "Đã thêm " . $count . " lượt truy cập!";
