@@ -99,8 +99,8 @@ class DB
 		if(strlen($id) == 7) { // Mã số sinh viên bình thường
 			$code = substr($id, 2, 2); // Kí tự thứ 3 và 4 là mã ngành
 		}
-		else if (strlen($id) == 8) { // Sinh viên đào tạo từ xa
-			$code = substr($id, 2, 1); // Kí tự thứ 3 là mã ngành
+		else if (strlen($id) == 8) { // Sinh viên có mã 3 đầu tiên là cao học
+			$code = substr($id, 0, 1); // Kí tự đầu tiên
 		}
 		else if (strlen($id) == 1){
 			$code = $id;

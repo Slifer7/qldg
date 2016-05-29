@@ -12,11 +12,11 @@
 	<h3>Thêm một lượt truy cập</h3>
 	<span id="txtInfo"></span>
 	<div id="divStudentInfo">
-		<input id="txtStudentID" type="text" placeholder="MSSV" onkeypress="return txtStudentID_KeyPress();"  onpaste="txtStudentID_Pasted();"  onkeyup="txtStudentID_KeyUp();" autofocus/> 
+		<input id="txtStudentID" type="text" placeholder="MSSV" onkeypress="return txtStudentID_KeyPress();"  onpaste="btnCheckStudentID_Click();"  onkeyup="txtStudentID_PressEnter(event);btnCheckStudentID_Click();" autofocus/> 
 		<input id="txtFullName" type="text" placeholder="Họ và tên" /> 		
-		<input type="button" value="Kiểm tra" onclick="btnCheckStudentID_Click();" /> 
+		<!-- <input type="button" value="Kiểm tra" onclick="btnCheckStudentID_Click();" /> -->
 		<div style="text-align: center; margin-top: 10px;">			
-			<input type="button" value="Thêm" onclick="btnInsertStudentID_Click();"/>
+			<input type="button" value="Thêm" id="btnInsertStudent" onclick="btnInsertStudentID_Click();"/>
 		</div>
 	</div>
 </div>
