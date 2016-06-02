@@ -1,10 +1,10 @@
 <?php
 	require_once("VisitInfo.php");
-	
+
 	if (!isset($_SESSION["LOGGED_IN"])){
 		// Redirect to log in page
 		header("Location: login.php");
-	}	
+	}
 ?>
 <h1>Quản lí lượt truy cập</h1>
 <br/>
@@ -12,17 +12,17 @@
 	<h3>Thêm một lượt truy cập</h3>
 	<span id="txtInfo"></span>
 	<div id="divStudentInfo">
-		<input id="txtStudentID" type="text" placeholder="MSSV" onkeypress="return txtStudentID_KeyPress();"  onpaste="btnCheckStudentID_Click();"  onkeyup="txtStudentID_PressEnter(event);btnCheckStudentID_Click();" autofocus/> 
-		<input id="txtFullName" type="text" placeholder="Họ và tên" /> 		
+		<input id="txtStudentID" type="text" placeholder="MSSV" onkeypress="txtStudentID_KeyPress(event);"  onpaste="txtStudentID_Pasted();"  onkeyup="txtStudentID_KeyUp(event);" autofocus/> 
+		<input id="txtFullName" type="text" placeholder="Họ và tên" />
 		<!-- <input type="button" value="Kiểm tra" onclick="btnCheckStudentID_Click();" /> -->
-		<div style="text-align: center; margin-top: 10px;">			
+		<div style="text-align: center; margin-top: 10px;">
 			<input type="button" value="Thêm" id="btnInsertStudent" onclick="btnInsertStudentID_Click();"/>
 		</div>
 	</div>
 </div>
 <br/>
 <br/>
-<div id="divVisitList"> 
+<div id="divVisitList">
 	<h3>Các lượt truy cập của ngày hiện tại: <?php echo (new DateTime())->format('d/m/Y');?></h3>
 	<table id="tblVisitList" border="1">
 		<tr>
@@ -31,9 +31,9 @@
 			<th>Ngành học</th>
 			<th>Thời gian</th>
 		</tr>
-	<?php		 
+	<?php
 		// Hiển thị các lượt đã truy cập của ngày hôm đó sắp xếp giảm dần
-		$visits = VisitInfo::GetTodayVisits($result->Room);			
+		$visits = VisitInfo::GetTodayVisits($result->Room);
 		error_log("Room:" . $result->Room);
 		foreach($visits as $visit){
 			echo "<tr>";

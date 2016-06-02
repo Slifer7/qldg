@@ -49,6 +49,7 @@ function btnCheckStudentID_Click() {
 
 // Kiểm tra dữ liệu ở giao diện có hợp lệ và đầy đủ hay chưa
 function CheckValidStudentInfo(){
+	//console.log("Check");
 	var info = "";
 	var id = $("#txtStudentID").val();
 
@@ -147,6 +148,7 @@ function insertVisit(id){
 }
 
 function txtStudentID_Pasted(){
+	console.log("pasted");
 	var id = undefined;
 	if (window.clipboardData && window.clipboardData.getData) { // IE
 		id = window.clipboardData.getData('Text');
@@ -167,15 +169,15 @@ function txtStudentID_Pasted(){
 }
 
 // Xảy ra trước khi hiện kí tự
-function txtStudentID_KeyPress(){
+function txtStudentID_KeyPress(e){
 	// Hot fix vụ insert thành công reset txtStudentID về rỗng nhưng lại gây ra sự kiện keypress???
 	$("#txtInfo").html("");
 	$("#txtFullName").val("");
 
 	// Chuyển từ chữ thường sang chữ hoa
-	var code = String.fromCharCode(event.keyCode);
+	var code = String.fromCharCode(e.keyCode);
 	if("cbn".indexOf(code) >= 0){
-		code = String.fromCharCode(event.keyCode - 32);
+		code = String.fromCharCode(e.keyCode - 32);
 	}
 
 	// Gặp kí tự đặc biệt CBN thì chỉ giữ lại một kí tự thôi
@@ -200,22 +202,9 @@ function txtStudentID_KeyPress(){
 	return false;
 }
 
-function txtStudentID_PressEnter(event){
+function txtStudentID_KeyUp(event){
+	//console.log(event.charCode + " " + event.keyCode);
 	if (event.keyCode == 13) { //13 la phim enter
-        document.getElementById("btnInsertStudent").click();
-    }
-}
-
-// Xảy ra sau khi hiện kí tự
-function txtStudentID_KeyUp(){
-	// No backspace needed so no need for keyup!
-	/* console.log("Reason?");
-	var BACKSPACE = 8;
-	var DELETE = 46;
-	var val = $("#txtStudentID").val();
-
-	if (val.length == 0){
-		$("#txtInfo").html("");
-		$("#txtFullName").val("");
-	}		 */
+        $("#btnInsertStudent").click();
+  }
 }
