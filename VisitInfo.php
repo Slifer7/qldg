@@ -17,10 +17,11 @@ class VisitInfo{
 	}
 
 	public static function GetTodayVisits($room) { //: VisitInfo	[]
+		error_log("Get inside today:" . $room);
 		$result = array();
 		$connection = db::Connect();
 
-		$sql = "select * from Visit v join Registration r on v.studentID = r.studentID where year(now()) = year(timestamp) and month(now()) = month(timestamp) and day(now()) = day(timestamp) and room='$room' order by timestamp desc";
+		$sql = "select v.visitid, v.studentid, v.major, v.timestamp, r.fullname from Visit v left join Registration r on v.studentID = r.studentID where year(now()) = year(timestamp) and month(now()) = month(timestamp) and day(now()) = day(timestamp) and room='$room' order by timestamp desc";
 		$reader = $connection->query($sql);
 
 		if ($reader->num_rows > 0) {
@@ -29,7 +30,6 @@ class VisitInfo{
 				$studentid = $row["studentid"];
 				$major = $row["major"];
 				$date = $row["timestamp"];
-
 				$item = new VisitInfo($vid, $studentid, $major, $date);
 				$item->FullName = $row["fullname"];
 				array_push($result, $item);
@@ -213,6 +213,6 @@ class VisitInfo{
 		$sheet->setCellValue("E" . (8 + $count + 1), $total);
 	}
 
-	
+
 }
 ?>

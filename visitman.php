@@ -12,7 +12,7 @@
 	<h3>Thêm một lượt truy cập</h3>
 	<span id="txtInfo"></span>
 	<div id="divStudentInfo">
-		<input id="txtStudentID" type="text" placeholder="MSSV" onkeypress="txtStudentID_KeyPress(event);"  onpaste="txtStudentID_Pasted();"  onkeyup="txtStudentID_KeyUp(event);" autofocus/> 
+		<input id="txtStudentID" type="text" placeholder="MSSV" onkeypress="txtStudentID_KeyPress(event);"  onpaste="txtStudentID_Pasted();"  onkeyup="txtStudentID_KeyUp(event);" autofocus/>
 		<input id="txtFullName" type="text" placeholder="Họ và tên" />
 		<!-- <input type="button" value="Kiểm tra" onclick="btnCheckStudentID_Click();" /> -->
 		<div style="text-align: center; margin-top: 10px;">
@@ -34,7 +34,7 @@
 	<?php
 		// Hiển thị các lượt đã truy cập của ngày hôm đó sắp xếp giảm dần
 		$visits = VisitInfo::GetTodayVisits($result->Room);
-		error_log("Room:" . $result->Room);
+		
 		foreach($visits as $visit){
 			echo "<tr>";
 				echo "<td>$visit->StudentID</td>";
