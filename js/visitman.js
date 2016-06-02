@@ -51,11 +51,12 @@ function btnCheckStudentID_Click() {
 function CheckValidStudentInfo(){
 	//console.log("Check");
 	var info = "";
-	var id = $("#txtStudentID").val();
+	var id = $("#txtStudentID").val().toUpperCase();
 
 	if (id.length == 0)
 		info += "Chưa nhập MSSV. <br/><br/>";
 	else if (id.length == 1){
+    console.log("check" + id);
 		if(id != "C"
 			&& id != "B"
 			&& id != "N"){
@@ -110,6 +111,7 @@ function insertVisit(id){
 	var len = id.length;
 
 	if (len == 7 || len == 8 || "CBN".indexOf(id) >= 0){ // Độ dài MSSV hợp lệ hay có kí tự đặc biệt
+    console.log(id + " " + len);
 		$.ajax({
 			"url": "doInsertVisit.php",
 			"type": "GET",
@@ -170,6 +172,7 @@ function txtStudentID_Pasted(){
 
 // Xảy ra trước khi hiện kí tự
 function txtStudentID_KeyPress(e){
+	console.log("Pressed");
 	// Hot fix vụ insert thành công reset txtStudentID về rỗng nhưng lại gây ra sự kiện keypress???
 	$("#txtInfo").html("");
 	$("#txtFullName").val("");
@@ -182,7 +185,7 @@ function txtStudentID_KeyPress(e){
 
 	// Gặp kí tự đặc biệt CBN thì chỉ giữ lại một kí tự thôi
 	if("CBN".indexOf(code) >= 0){
-		$("#txtStudentID").val(code); // Thay toàn bộ mssv bằng kí tự đặc biệt
+		//$("#txtStudentID").val(code); // Thay toàn bộ mssv bằng kí tự đặc biệt
 		$("#txtFullName").val(GetFullNameFromSpecialCaseCBN(code));
 		return false;
 	}
@@ -195,7 +198,7 @@ function txtStudentID_KeyPress(e){
 				$("#txtStudentID").val(""); // Xóa trống nhường chỗ cho số
 			}
 		}
-		return true;
+		return false;
 	}
 
 	// Chi cho phép nhập số hoặc các chữ cái C, B, N (đã bắt ở trên) mà thôi
@@ -203,8 +206,13 @@ function txtStudentID_KeyPress(e){
 }
 
 function txtStudentID_KeyUp(event){
+	console.log("up");
 	//console.log(event.charCode + " " + event.keyCode);
 	if (event.keyCode == 13) { //13 la phim enter
         $("#btnInsertStudent").click();
   }
+	else
+	{
+		return false;
+	}
 }
