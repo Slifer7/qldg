@@ -73,24 +73,21 @@ class VisitInfo{
 	public static function GetVisitsByRoom($from, $to, $room){
 		$connection = db::Connect();
 
-		$sql = "select majorname, count(major) as total " .
-				"from major as m left join " .
-					"(select major, room, timestamp from visit where room='$room' and " .
-					"cast(timestamp as date) between cast('$from' as date) and cast('$to' as date)) as v " .
-				"on m.majorname = v.major " .
-			    "group by m.majorname, v.major";
-
-		$reader = $connection->query($sql);
+		$majors = db::GetAllMajorsDistinct();
 		$result = array();
 
-		if($reader->num_rows > 0 ){
-			while($row = $reader->fetch_assoc()){
-				$item = new stdClass();
-				$item->major = $row["majorname"];
-				$item->total = $row["total"];
-				array_push($result, $item);
-			}
+		foreach($majors as $major)
+		{
+			$sql = "select count(*) as total from visit where cast(timestamp as date) between cast('$from' as date) and cast('$to' as date) and major = '$major' and room='$room'";
+			$reader = $connection->query($sql);
+			$row = $reader->fetch_assoc();
+
+			$item = new stdClass();
+			$item->major = $major;
+			$item->total = $row["total"];
+			array_push($result, $item);
 		}
+
 		$connection->close();
 		return $result;
 	}
@@ -99,25 +96,21 @@ class VisitInfo{
 	public static function GetTotalVisits($from, $to){
 		$connection = db::Connect();
 
-		$sql = "select majorname, count(major) as total " .
-				"from major as m left join " .
-					"(select major, timestamp from visit " .
-					"where cast(timestamp as date) ".
-					"between cast('$from' as date) and cast('$to' as date)) as v ".
-				"on m.majorname = v.major " .
-			    "group by m.majorname, v.major";
-
-		$reader = $connection->query($sql);
+		$majors = db::GetAllMajorsDistinct();
 		$result = array();
 
-		if($reader->num_rows > 0 ){
-			while($row = $reader->fetch_assoc()){
-				$item = new stdClass();
-				$item->major = $row["majorname"];
-				$item->total = $row["total"];
-				array_push($result, $item);
-			}
+		foreach($majors as $major)
+		{
+			$sql = "select count(*) as total from visit where cast(timestamp as date) between cast('$from' as date) and cast('$to' as date) and major = '$major'";
+			$reader = $connection->query($sql);
+			$row = $reader->fetch_assoc();
+
+			$item = new stdClass();
+			$item->major = $major;
+			$item->total = $row["total"];
+			array_push($result, $item);
 		}
+
 		$connection->close();
 		return $result;
 	}

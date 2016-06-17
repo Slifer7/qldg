@@ -167,6 +167,25 @@ class DB
 		return $majors;
 	}
 
+	public static function GetAllMajorsDistinct() // :MajorInfo[]
+	{
+		$majors = array();
+		$connection = self::Connect();
+
+		$sql = "select distinct majorname from major";
+		$reader = $connection->query($sql);
+
+		if($reader->num_rows > 0) {
+			while ($row = $reader->fetch_assoc()){
+				$name = $row["majorname"];
+				array_push($majors, $name);
+			}
+		}
+
+		$connection->close();
+		return $majors;
+	}
+
 	public static function InsertVisit($date, $studentID, $room){
 		$result = new stdClass();
 		$result->VisitID = -1;

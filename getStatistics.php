@@ -6,8 +6,8 @@ if(isset($_GET["FromDate"], $_GET["ToDate"], $_GET["Room"], $_GET["Major"])){
 	$to = $_GET["ToDate"];
 	$room = $_GET["Room"];
 	$major = $_GET["Major"];
-	
+
 	$result = VisitInfo::GetVisits($from, $to, $room, $major);
 	echo json_encode($result);
-} 
+}
 ?>
