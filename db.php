@@ -54,7 +54,7 @@ class DB
 		$reginfo = self::GetRegistrationInfoByStudentID($studentID);
 
 		// Trường hợp đặc biệt không cần kiểm tra có đăng kí hay chưa
-		if(strpos("CBN", $studentID) !== false){ // Có tồn tại 1 trong số các kí tự đb
+		if(strpos("CBN", strtoupper($studentID)) !== false){ // Có tồn tại 1 trong số các kí tự đb
 			$result->FullName = self::_getMajorName($studentID); // Trường hợp mã đặc biệt thì tên cũng là tên ngành
 			$connection = self::Connect();
 			$sql = "insert into Visit(studentid, major, timestamp, room) values('$studentID', '$result->Major', now(), '$room')";

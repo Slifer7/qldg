@@ -19,6 +19,9 @@ function invalidateForm(){
 }
 
 function insert(id){
+	if (id.length == 1)
+		id = id.toUpperCase();
+
 	$.ajax({
 			"url": "doInsertVisit.php",
 			"type": "GET",
@@ -45,11 +48,9 @@ function insert(id){
 					info = "Đã thêm thành công lượt truy cập của sinh viên: {0} - {1} <br/><br/>"
 								.format(visitInfo.StudentID, visitInfo.FullName);
 					$("#txtInfo").attr("class", "Info");
-
-					// Reset form cho lần nhập thông tin kế
-					$("#txtStudentID").val("").focus();
 				}
-
+				// Reset form cho lần nhập thông tin kế
+				$("#txtStudentID").val("").focus();
 				$("#txtInfo").html(info);
 			}
 		});
